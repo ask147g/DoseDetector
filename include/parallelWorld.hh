@@ -1,0 +1,1 @@
+#include "G4VUserParallelWorld.hh"
