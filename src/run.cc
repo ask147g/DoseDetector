@@ -16,8 +16,7 @@ void UserRun::RecordEvent(const G4Event* evt) {
     fMapSum += *evtMap;
 }
 
-G4double UserRun::GetTotal(const G4THitsMap<G4double> &map) const
-{
+G4double UserRun::GetTotal(const G4THitsMap<G4double> &map) const {
   G4double tot = 0.;
   if(map.GetSize()==0) return tot;
   std::map<G4int,G4double*>::iterator itr = map.GetMap()->begin();

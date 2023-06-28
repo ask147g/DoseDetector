@@ -22,9 +22,9 @@ void ParallelWorld::SetupGeometry() {
     G4Box *waterBox = 
         new G4Box(
             "waterBox", 
-            10*CLHEP::cm, 
-            10*CLHEP::cm, 
-            10*CLHEP::cm);
+            5*CLHEP::cm, 
+            5*CLHEP::cm, 
+            5*CLHEP::cm);
 
     waterLogic = 
         new G4LogicalVolume(
@@ -46,7 +46,8 @@ void ParallelWorld::SetupGeometry() {
 void ParallelWorld::SetupDetectors() {
     G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
     G4VPrimitiveScorer* primitive;
-    primitive = new G4PSDoseDeposit("Edep");
+    G4cout << "WORKSS" << G4endl;
+    primitive = new EquivalentDose("Edep");
     det->RegisterPrimitive(primitive);
     G4SDManager::GetSDMpointer()->AddNewDetector(det);
     SetSensitiveDetector(waterLogic, det);

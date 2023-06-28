@@ -5,6 +5,7 @@ UserRunAction::UserRunAction() {
 
 UserRunAction::~UserRunAction() {
 }
+
 G4Run* UserRunAction::GenerateRun() {
     return new UserRun;
 }
