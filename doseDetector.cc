@@ -8,8 +8,10 @@
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
 #include "QBBC.hh"
+#include "G4ParallelWorldPhysics.hh"
 
 #include "physicalConstruction.hh"
+#include "parallelWorld.hh"
 #include "action.hh"
 
 int main(int argc, char** argv) {
@@ -21,8 +23,14 @@ int main(int argc, char** argv) {
 
 	G4RunManager *runManager = new G4RunManager();
 	
-	runManager->SetUserInitialization(new PhysicalConstruction());
-	runManager->SetUserInitialization(new QBBC());
+    PhysicalConstruction* world = new PhysicalConstruction();
+    G4String parallelWorldName = "ParallelWorld";
+    world->RegisterParallelWorld(new ParallelWorld(parallelWorldName));
+	runManager->SetUserInitialization(world);
+    
+    auto physics = new QBBC();
+    physics->RegisterPhysics(new G4ParallelWorldPhysics(parallelWorldName));
+	runManager->SetUserInitialization(physics);
 	runManager->SetUserInitialization(new MyActionInitialization());
 	
 	runManager->Initialize();

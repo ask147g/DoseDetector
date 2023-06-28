@@ -7,6 +7,6 @@ MyActionInitialization::~MyActionInitialization() {
 }
 
 void MyActionInitialization::Build() const {
-	MyPrimaryGenerator *generator = new MyPrimaryGenerator();
-	SetUserAction(generator);
+	SetUserAction(new MyPrimaryGenerator());
+	SetUserAction(new UserRunAction());
 }

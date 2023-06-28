@@ -10,5 +10,8 @@
 # Initialize kernel
 /run/initialize
 
+# Limits trajectories
+/vis/scene/endOfEventAction accumulate -1
+
 # Visualization setting
 /control/execute vis.mac

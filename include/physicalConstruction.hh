@@ -18,8 +18,13 @@ public:
 	PhysicalConstruction();
 	~PhysicalConstruction();
 	
-	virtual G4VPhysicalVolume *Construct();	//
-    void ConstructSDandField();
+	virtual G4VPhysicalVolume *Construct();
+private:
+	G4VPhysicalVolume* SetupGeometry();
+	G4VPhysicalVolume* BuildMotherVolume();
+	void BuildWorldConstruction();
+
+	G4LogicalVolume* logicWorld;
 };
 
 #endif

@@ -7,20 +7,29 @@ PhysicalConstruction::~PhysicalConstruction() {
 }
 
 G4VPhysicalVolume *PhysicalConstruction::Construct() {
-	G4NistManager *nist = G4NistManager::Instance();
-	G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
-	G4Material *water = nist->FindOrBuildMaterial("G4_WATER");
-	
+	G4VPhysicalVolume *physWorld = SetupGeometry();
+	return physWorld;
+}
 
-    // Mother Volume
-	G4Box *solidWorld = 
+G4VPhysicalVolume* PhysicalConstruction::SetupGeometry() {
+    G4VPhysicalVolume *physWorld = BuildMotherVolume();
+    BuildWorldConstruction();
+
+    return physWorld;
+}
+
+G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
+    G4NistManager *nist = G4NistManager::Instance();
+	G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
+    
+    G4Box *solidWorld = 
         new G4Box(
             "solidWorld", 
             10*CLHEP::cm, 
             10*CLHEP::cm, 
             10*CLHEP::cm);
 
-	G4LogicalVolume *logicWorld = 
+	logicWorld = 
         new G4LogicalVolume(
             solidWorld, 
             vacuum, 
@@ -36,11 +45,17 @@ G4VPhysicalVolume *PhysicalConstruction::Construct() {
 			false, 
 			0, 
 			false); 
-	
-    // Daughter Volume
+
+    return physWorld;
+}
+
+void PhysicalConstruction::BuildWorldConstruction() {
+    G4NistManager *nist = G4NistManager::Instance();
+    G4Material *water = nist->FindOrBuildMaterial("G4_WATER");
+
     G4Box *waterBox = 
         new G4Box(
-            "waterBox", 
+            "waterBox_main", 
             5*CLHEP::cm, 
             5*CLHEP::cm, 
             5*CLHEP::cm);
@@ -49,32 +64,16 @@ G4VPhysicalVolume *PhysicalConstruction::Construct() {
         new G4LogicalVolume(
             waterBox, 
             water, 
-            "waterLogic");
+            "waterLogic_main");
 
     G4VPhysicalVolume *waterWorld = 
         new G4PVPlacement(
             0, 
 			G4ThreeVector(0., 0., 0.), 
 			waterLogic, 
-			"physWorld", 
+			"physWorld_main", 
 			logicWorld, 
 			false, 
 			0, 
 			false); 
-    
-	return physWorld;
-}
-
-void PhysicalConstruction::ConstructSDandField() {
-    G4SDParticleFilter* gammaFilter 
-        = new G4SDParticleFilter("gammaFilter", "gamma");
-  
-    G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
-    G4SDManager::GetSDMpointer()->AddNewDetector(det);
-
-    G4VPrimitiveScorer* primitive;
-    primitive = new G4PSEnergyDeposit("Edep");
-    primitive->SetFilter(gammaFilter);
-    det->RegisterPrimitive(primitive);
-    SetSensitiveDetector("waterLogic", det);
 }

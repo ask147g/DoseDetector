@@ -3,19 +3,23 @@
 
 #include "G4UserRunAction.hh"
 #include "globals.hh"
+#include "G4UnitsTable.hh"
+
+#include "run.hh"
 
 class G4Run;
 
 class UserRunAction : public G4UserRunAction {
 public:
-    UserRunAction()
-    ~UserRunAction();
+    UserRunAction();
+    virtual ~UserRunAction();
 
+    G4Run* GenerateRun();
     virtual void BeginOfRunAction(const G4Run* aRun);
     virtual void EndOfRunAction(const G4Run* aRun);
 private:
 
 
-}
+};
 
 #endif
