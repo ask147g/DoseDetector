@@ -34,9 +34,8 @@ G4bool EquivalentDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   G4double wei   = aStep->GetPreStepPoint()->GetWeight();
   G4int index    = GetIndex(aStep);
   
-  EquivalentCoefficient(aStep);
-  // определить тип частицы, энергию и домножить на коэффициент
-  G4double dosew = dose * wei;
+  G4double equivalentCoefficient = EquivalentCoefficient(aStep);
+  G4double dosew = dose * wei * equivalentCoefficient;
   EvtMap->add(index, dosew);
 
   if(!hitIDMap.empty() && hitIDMap.find(index) != hitIDMap.cend())
@@ -58,14 +57,26 @@ G4bool EquivalentDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
 
 }
 
-G4double EquivalentDose::ComputeVolume(G4Step* aStep, G4int idx)
-{
+G4double EquivalentDose::ComputeVolume(G4Step* aStep, G4int idx) {
   G4VSolid* solid = ComputeSolid(aStep, idx);
   return solid->GetCubicVolume();
 }
 
 G4double EquivalentDose::EquivalentCoefficient(G4Step* aStep) {
-    G4double energy = aStep->GetTrack()->GetKineticEnergy();
-    G4cout << energy << G4endl;
-    return 1;
+  G4String name = aStep->GetTrack()->GetParticleDefinition()->GetParticleName();
+  G4int A = aStep->GetTrack()->GetParticleDefinition()->GetAtomicNumber();
+  G4double energy = aStep->GetTrack()->GetKineticEnergy()/CLHEP::MeV;
+  
+  std::map< std::pair <G4String, std::pair <G4double, G4double> >, G4double>::iterator it = equivalentCoefficient.begin();
+  for (it; it != equivalentCoefficient.end(); ++it) {
+    if (name == it->first.first) {
+      if ((it->first.second.first < energy < it->first.second.second) 
+        || (it->first.second.first >= it->first.second.second))
+      return it->second;
+
+      if (A > 1) // heavy particle
+        return equivalentCoefficient.end()->second; // returns 20 as for alpha
+    }
+  }
+  return 1;
 }
