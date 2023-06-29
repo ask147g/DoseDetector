@@ -56,9 +56,9 @@ void PhysicalConstruction::BuildWorldConstruction() {
     G4Box *waterBox = 
         new G4Box(
             "waterBox_main", 
-            5*CLHEP::cm, 
-            5*CLHEP::cm, 
-            5*CLHEP::cm);
+            0.5*CLHEP::cm, 
+            0.5*CLHEP::cm, 
+            0.5*CLHEP::cm);
 
     G4LogicalVolume *waterLogic = 
         new G4LogicalVolume(
@@ -68,8 +68,8 @@ void PhysicalConstruction::BuildWorldConstruction() {
 
     G4VPhysicalVolume *waterWorld = 
         new G4PVPlacement(
-            0, 
-			G4ThreeVector(0., 0., 0.), 
+            new G4RotationMatrix(0, 0., 0.), 
+			G4ThreeVector(5*CLHEP::cm, 0., 0.), 
 			waterLogic, 
 			"physWorld_main", 
 			logicWorld, 

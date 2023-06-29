@@ -1,21 +1,21 @@
-#include "parallelWorld.hh"
+#include "parallelWorldMany.hh"
 
-ParallelWorld::ParallelWorld(G4String name)
-:G4VUserParallelWorld(name) {
+ParallelWorldMany::ParallelWorldMany(G4String name, G4int num = 0)
+    :G4VUserParallelWorld(name), copies(num) {
 }
 
-ParallelWorld::~ParallelWorld() {
+ParallelWorldMany::~ParallelWorldMany() {
 }
 
-void ParallelWorld::Construct() {
+void ParallelWorldMany::Construct() {
     SetupGeometry();
 }
 
-void ParallelWorld::ConstructSD() {
+void ParallelWorldMany::ConstructSD() {
     SetupDetectors();
 }
 
-void ParallelWorld::SetupGeometry() {
+void ParallelWorldMany::SetupGeometry() {
     G4VPhysicalVolume* ghostWorld = GetWorld();
     G4LogicalVolume* logicWorld = ghostWorld->GetLogicalVolume();
 
@@ -43,7 +43,7 @@ void ParallelWorld::SetupGeometry() {
 			0); 
 }
 
-void ParallelWorld::SetupDetectors() {
+void ParallelWorldMany::SetupDetectors() {
     G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
     G4VPrimitiveScorer* primitive;
     primitive = new EffectiveDose("Edep");

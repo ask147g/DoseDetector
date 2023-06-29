@@ -12,6 +12,7 @@
 #include "G4VPrimitiveScorer.hh"
 #include "G4PSEnergyDeposit.hh"
 #include "G4SDParticleFilter.hh"
+#include "G4RotationMatrix.hh"
 
 class PhysicalConstruction : public G4VUserDetectorConstruction {
 public:

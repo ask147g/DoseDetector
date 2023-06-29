@@ -20,10 +20,10 @@
 class G4LogicalVolume;
 class G4VPhysicalVolume;
 
-class ParallelWorld : public G4VUserParallelWorld {
+class ParallelWorldMany : public G4VUserParallelWorld {
 public:
-    ParallelWorld(G4String name);
-    virtual ~ParallelWorld();
+    ParallelWorldMany(G4String, G4int);
+    virtual ~ParallelWorldMany();
 
     virtual void Construct();
     virtual void ConstructSD();
@@ -33,6 +33,7 @@ private:
     void SetupDetectors();
 
     G4LogicalVolume *waterLogic;
+    G4int copies;
 };
 
 #endif
