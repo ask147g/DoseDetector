@@ -69,7 +69,7 @@ void PhysicalConstruction::BuildWorldConstruction() {
     G4VPhysicalVolume *waterWorld = 
         new G4PVPlacement(
             new G4RotationMatrix(0, 0., 0.), 
-			G4ThreeVector(5*CLHEP::cm, 0., 0.), 
+			G4ThreeVector(0., 0., 0.), 
 			waterLogic, 
 			"physWorld_main", 
 			logicWorld, 

@@ -41,8 +41,10 @@ public:
 private:
 
   G4double ComputeSurface(G4Step*);
+  G4double ComputeVolume(G4Step*, G4int);
 	G4int HCID;
 	G4THitsMap<G4double>* EvtMap;
+  G4double vergeA;
 
 protected:
 	G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;

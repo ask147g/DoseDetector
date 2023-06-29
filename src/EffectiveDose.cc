@@ -23,10 +23,18 @@ void EffectiveDose::Initialize(G4HCofThisEvent* HCE) {
 G4bool EffectiveDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   G4int pdg = aStep->GetTrack()->GetParticleDefinition()->GetPDGEncoding();
   G4double energy = aStep->GetTrack()->GetTotalEnergy();
-  G4double dose = ComputeSurface(aStep)*ConvertDim(pdg, energy, ISO);
-
   G4int idx = ((G4TouchableHistory*) (aStep->GetPreStepPoint()->GetTouchable()))
                 ->GetReplicaNumber(indexDepth);
+
+  G4ThreeVector pre = aStep->GetPreStepPoint()->GetPosition();
+  G4ThreeVector post = aStep->GetPostStepPoint()->GetPosition();
+
+  G4double length = std::sqrt(std::pow(pre.x()/CLHEP::cm - post.x()/CLHEP::cm, 2) + 
+    std::pow(pre.y()/CLHEP::cm - post.y()/CLHEP::cm, 2) + 
+    std::pow(pre.z()/CLHEP::cm - post.z()/CLHEP::cm, 2));
+  
+  G4double dose = ConvertDim(pdg, energy, ISO)*length/ComputeVolume(aStep, idx);
+
 
   G4int index = GetIndex(aStep);
   
@@ -38,13 +46,18 @@ G4bool EffectiveDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
 // aStep->GetPre(Post)Point()->GetPosition() --> Particle coordinate 
 // aTrack->GetMomentumDirection() --> allow to get angle
 G4double EffectiveDose::ComputeSurface(G4Step* aStep) {
-  //G4cout << aStep->GetTrack()->GetTouchable()->GetSolid()->SurfaceNormal() << G4endl;
+  //G4cout << aStep->GetTrack()->GetTouchable()->GetSolid()->GetCubicVolume()/CLHEP::cm3 << G4endl;
   //G4cout << aStep->GetTrack()->GetMomentumDirection() << G4endl;
   //G4cout << aStep->GetTrack()->GetVolume()->GetFrameTranslation() << G4endl;
-  //G4cout << aStep->GetPreStepPoint()->GetPosition() << G4endl;
   //G4cout << aStep->GetPostStepPoint()->GetPosition() << G4endl;
   return 0.01*CLHEP::cm2;
 }
+
+G4double EffectiveDose::ComputeVolume(G4Step* aStep, G4int idx) {
+  G4VSolid* solid = ComputeSolid(aStep, idx);
+  return solid->GetCubicVolume();
+}
+
 
 double EffectiveDose::ConvertDim(double pdg, double energy_MeV, int geometry) {
   double energy = energy_MeV/MeV;
