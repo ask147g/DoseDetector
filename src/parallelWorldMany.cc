@@ -1,6 +1,6 @@
 #include "parallelWorldMany.hh"
 
-ParallelWorldMany::ParallelWorldMany(G4String name, G4int num = 0)
+ParallelWorldMany::ParallelWorldMany(G4String name, G4int num = 1)
     :G4VUserParallelWorld(name), copies(num) {
 }
 

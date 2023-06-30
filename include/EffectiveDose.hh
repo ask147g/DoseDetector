@@ -19,6 +19,8 @@
 // Effective dose per fluence, in units of pSv cm 2, for mono-energetic particles incident in various geometries.
 // geometry: AP, antero-posterior; PA, postero-anterior; ISO, isotropic
 
+// geometry 0 for AP, 1 for PA, 2 for ISO
+
 enum {AP = 1, PA = 2, ISO = 3};
 
 static constexpr double sievert = joule/kilogram ;
@@ -29,26 +31,23 @@ static constexpr double picosievert  = 1.e-12*sievert;
 
 class EffectiveDose : public G4VPrimitivePlotter {
 public:
-	EffectiveDose(G4String name, G4int depth = 0);
+	EffectiveDose(G4String name, G4int geometry = 2, G4int depth = 0);
 	~EffectiveDose() override = default	;
 	
 	void Initialize(G4HCofThisEvent*);
-
 	double ConvertDim(double pdg, double energy_MeV, int geometry); // convert unit flux to effective dose [pSv/cm2]
-
 	double Convert(double pdg, double energy, int geometry); // convert unit flux to effective dose [pSv/cm2] 
 
 private:
-
   G4double ComputeVolume(G4Step*, G4int);
 	G4int HCID;
 	G4THitsMap<G4double>* EvtMap;
   G4double vergeA;
+  G4int detectorGeometry;
 
 protected:
 	G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;
 
-	protected:
   double photons[4][55]={
     {0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.511, 0.6, 0.662, 0.8, 1.0, 1.117, 1.33, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 6.129, 8.0, 10.0, 15.0, 20.0, 30.0, 40.0, 50.0, 60.0, 80.0, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 5000, 6000, 8000, 10000},
     {0.0685, 0.156, 0.225, 0.312, 0.350, 0.369, 0.389, 0.411, 0.443, 0.518, 0.747, 1.00, 1.51, 2.00, 2.47, 2.52, 2.91, 3.17, 3.73, 4.49, 4.90, 5.60, 6.12, 7.48, 9.75, 11.7, 13.4, 15.0, 15.1, 17.8, 20.5, 26.1, 30.8, 37.9, 43.2, 47.1, 50.1, 54.5, 57.8, 63.2, 67.2, 72.3, 75.4, 77.4, 78.7, 80.4, 81.6, 83.7, 85.0, 86.6, 87.8, 88.6, 89.1, 89.9, 90.4},

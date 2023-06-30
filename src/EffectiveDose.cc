@@ -1,9 +1,10 @@
 #include "EffectiveDose.hh"
 
-EffectiveDose::EffectiveDose(G4String name, G4int depth)
+EffectiveDose::EffectiveDose(G4String name, G4int geometry, G4int depth)
   : G4VPrimitivePlotter(name, depth),
     HCID(-1),
-    EvtMap(nullptr) {
+    EvtMap(nullptr),
+    detectorGeometry(geometry) {
       new G4UnitDefinition("millisievert", "milliSv" , "Effective Dose", millisievert);
       new G4UnitDefinition("microsievert", "microSv" , "Effective Dose", microsievert);
       new G4UnitDefinition("nanosievert" , "nanoSv"  , "Effective Dose", nanosievert);
@@ -33,8 +34,7 @@ G4bool EffectiveDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     std::pow(pre.y()/CLHEP::cm - post.y()/CLHEP::cm, 2) + 
     std::pow(pre.z()/CLHEP::cm - post.z()/CLHEP::cm, 2));
   
-  G4double dose = ConvertDim(pdg, energy, ISO)*length/ComputeVolume(aStep, idx);
-
+  G4double dose = ConvertDim(pdg, energy, detectorGeometry+1)*length/ComputeVolume(aStep, idx);
   G4int index = GetIndex(aStep);
   
   EvtMap->add(index, dose);
