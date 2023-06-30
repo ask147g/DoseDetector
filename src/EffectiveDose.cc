@@ -35,7 +35,6 @@ G4bool EffectiveDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   
   G4double dose = ConvertDim(pdg, energy, ISO)*length/ComputeVolume(aStep, idx);
 
-
   G4int index = GetIndex(aStep);
   
   EvtMap->add(index, dose);
@@ -43,19 +42,9 @@ G4bool EffectiveDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   return true;
 }
 
-// aStep->GetPre(Post)Point()->GetPosition() --> Particle coordinate 
-// aTrack->GetMomentumDirection() --> allow to get angle
-G4double EffectiveDose::ComputeSurface(G4Step* aStep) {
-  //G4cout << aStep->GetTrack()->GetTouchable()->GetSolid()->GetCubicVolume()/CLHEP::cm3 << G4endl;
-  //G4cout << aStep->GetTrack()->GetMomentumDirection() << G4endl;
-  //G4cout << aStep->GetTrack()->GetVolume()->GetFrameTranslation() << G4endl;
-  //G4cout << aStep->GetPostStepPoint()->GetPosition() << G4endl;
-  return 0.01*CLHEP::cm2;
-}
-
 G4double EffectiveDose::ComputeVolume(G4Step* aStep, G4int idx) {
   G4VSolid* solid = ComputeSolid(aStep, idx);
-  return solid->GetCubicVolume();
+  return solid->GetCubicVolume()/CLHEP::cm3;
 }
 
 

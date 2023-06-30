@@ -4,7 +4,7 @@
 /control/execute vis.mac
 /vis/open OGL
 /vis/sceneHandler/create OGL
-/vis/viewer/create ! ! 600
+/vis/viewer/create ! ! none
 /vis/viewer/refresh
 /vis/viewer/set/viewpointVector 1 1 1
 /vis/drawVolume
@@ -28,4 +28,3 @@
 /run/beamOn 10000
 /vis/scene/notifyHandlers scene-0
 /run/beamOn 100000
-/run/beamOn 1000000

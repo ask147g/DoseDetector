@@ -51,7 +51,7 @@ G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
 
 void PhysicalConstruction::BuildWorldConstruction() {
     G4NistManager *nist = G4NistManager::Instance();
-    G4Material *water = nist->FindOrBuildMaterial("G4_WATER");
+    G4Material *water = nist->FindOrBuildMaterial("G4_AIR");
 
     G4Box *waterBox = 
         new G4Box(
@@ -69,7 +69,7 @@ void PhysicalConstruction::BuildWorldConstruction() {
     G4VPhysicalVolume *waterWorld = 
         new G4PVPlacement(
             new G4RotationMatrix(0, 0., 0.), 
-			G4ThreeVector(0., 0., 0.), 
+			G4ThreeVector(5*CLHEP::cm, 0., 0.), 
 			waterLogic, 
 			"physWorld_main", 
 			logicWorld, 

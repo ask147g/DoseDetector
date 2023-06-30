@@ -40,7 +40,6 @@ public:
 
 private:
 
-  G4double ComputeSurface(G4Step*);
   G4double ComputeVolume(G4Step*, G4int);
 	G4int HCID;
 	G4THitsMap<G4double>* EvtMap;
