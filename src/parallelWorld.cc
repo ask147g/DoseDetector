@@ -12,7 +12,7 @@ void ParallelWorld::Construct() {
 }
 
 void ParallelWorld::ConstructSD() {
-    SetupDetectors();
+    //SetupDetectors();
 }
 
 void ParallelWorld::SetupGeometry() {

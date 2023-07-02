@@ -47,7 +47,6 @@ G4double EffectiveDose::ComputeVolume(G4Step* aStep, G4int idx) {
   return solid->GetCubicVolume()/CLHEP::cm3;
 }
 
-
 double EffectiveDose::ConvertDim(double pdg, double energy_MeV, int geometry) {
   double energy = energy_MeV/MeV;
   double coeff = Convert(pdg, energy, geometry);

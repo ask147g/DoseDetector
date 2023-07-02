@@ -10,7 +10,7 @@ MyPrimaryGenerator::~MyPrimaryGenerator() {
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
 	G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
-	G4ThreeVector pos = G4ThreeVector(-10*CLHEP::cm, 0, 0);
+	G4ThreeVector pos = G4ThreeVector(-500*CLHEP::cm, 0, 0);
 	G4ThreeVector mom = G4ThreeVector(1, 0, 0);
 	G4double a = 1.3325*CLHEP::MeV;
 	

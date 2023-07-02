@@ -14,6 +14,8 @@
 #include "G4SDParticleFilter.hh"
 #include "G4RotationMatrix.hh"
 
+#include "EffectiveDose.hh"
+
 class PhysicalConstruction : public G4VUserDetectorConstruction {
 public:
 	PhysicalConstruction();

@@ -20,14 +20,14 @@ G4VPhysicalVolume* PhysicalConstruction::SetupGeometry() {
 
 G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
     G4NistManager *nist = G4NistManager::Instance();
-	G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
+	G4Material *vacuum = nist->FindOrBuildMaterial("G4_AIR");
     
     G4Box *solidWorld = 
         new G4Box(
             "solidWorld", 
-            10*CLHEP::cm, 
-            10*CLHEP::cm, 
-            10*CLHEP::cm);
+            500*CLHEP::cm, 
+            500*CLHEP::cm, 
+            500*CLHEP::cm);
 
 	logicWorld = 
         new G4LogicalVolume(
@@ -69,11 +69,19 @@ void PhysicalConstruction::BuildWorldConstruction() {
     G4VPhysicalVolume *waterWorld = 
         new G4PVPlacement(
             new G4RotationMatrix(0, 0., 0.), 
-			G4ThreeVector(5*CLHEP::cm, 0., 0.), 
+			G4ThreeVector(0., 0., 0.), 
 			waterLogic, 
 			"physWorld_main", 
 			logicWorld, 
 			false, 
 			0, 
 			false); 
+
+
+    G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
+    G4VPrimitiveScorer* primitive;
+    primitive = new EffectiveDose("Edep");
+    det->RegisterPrimitive(primitive);
+    G4SDManager::GetSDMpointer()->AddNewDetector(det);
+    SetSensitiveDetector(waterLogic, det);
 }

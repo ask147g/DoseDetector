@@ -25,5 +25,5 @@
 /vis/viewer/refresh
 /vis/viewer/set/defaultTextColour 0 0 0
 /vis/viewer/refresh
-/run/beamOn 1000
+/run/beamOn 100000
 /vis/scene/notifyHandlers scene-0

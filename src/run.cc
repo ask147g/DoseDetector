@@ -11,8 +11,6 @@ UserRun::~UserRun() {
 void UserRun::RecordEvent(const G4Event* evt) {
     G4HCofThisEvent* HCE = evt->GetHCofThisEvent();
     if(!HCE) return;
-    //numberOfEvent++;
-    //G4cout << numberOfEvent << G4endl;
     G4THitsMap<G4double>* evtMap 
         = (G4THitsMap<G4double>*)(HCE->GetHC(fColIDSum));
     fMapSum += *evtMap;

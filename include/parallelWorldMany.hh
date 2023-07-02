@@ -22,7 +22,7 @@ class G4VPhysicalVolume;
 
 class ParallelWorldMany : public G4VUserParallelWorld {
 public:
-    ParallelWorldMany(G4String, G4int);
+    ParallelWorldMany(G4String, G4ThreeVector);
     virtual ~ParallelWorldMany();
 
     virtual void Construct();
