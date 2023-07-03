@@ -33,7 +33,7 @@ private:
     void SetupDetectors();
 
     G4LogicalVolume *waterLogic;
-    G4int copies;
+    G4ThreeVector worldSize;
 };
 
 #endif

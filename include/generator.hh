@@ -4,8 +4,12 @@
 #include "G4VUserPrimaryGeneratorAction.hh"
 
 #include "G4ParticleGun.hh"
+#include "G4SingleParticleSource.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ParticleTable.hh"
+
+#include "G4Geantino.hh"
+#include "G4IonTable.hh"
 
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction
 {
@@ -17,6 +21,7 @@ public:
 	
 private:
 	G4ParticleGun *fParticleGun;
+	G4SingleParticleSource *gun;
 };
 
 #endif

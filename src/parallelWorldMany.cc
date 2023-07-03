@@ -1,6 +1,6 @@
 #include "parallelWorldMany.hh"
 
-ParallelWorldMany::ParallelWorldMany(G4String name, G4ThreeVector sizes)
+ParallelWorldMany::ParallelWorldMany(G4String name, G4ThreeVector worldSizes)
     :G4VUserParallelWorld(name) {
 }
 
@@ -16,8 +16,8 @@ void ParallelWorldMany::ConstructSD() {
 }
 
 void ParallelWorldMany::SetupGeometry() {
-    G4VPhysicalVolume* ghostWorld = GetWorld();
-    G4LogicalVolume* logicWorld = ghostWorld->GetLogicalVolume();
+    G4VPhysicalVolume* globalWorld = GetWorld();
+    G4LogicalVolume* logicWorld = globalWorld->GetLogicalVolume();
 
     G4Box *waterBox = 
         new G4Box(

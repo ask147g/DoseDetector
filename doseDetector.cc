@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     
     auto physics = new QBBC();
     physics->RegisterPhysics(new G4ParallelWorldPhysics(parallelWorldName));
-	runManager->SetUserInitialization(physics);
+    runManager->SetUserInitialization(physics);
 	runManager->SetUserInitialization(new MyActionInitialization());
 	
 	runManager->Initialize();

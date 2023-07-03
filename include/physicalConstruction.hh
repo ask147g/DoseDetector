@@ -13,8 +13,11 @@
 #include "G4PSEnergyDeposit.hh"
 #include "G4SDParticleFilter.hh"
 #include "G4RotationMatrix.hh"
+#include "G4PVReplica.hh"
 
 #include "EffectiveDose.hh"
+
+#include <vector>
 
 class PhysicalConstruction : public G4VUserDetectorConstruction {
 public:
@@ -28,6 +31,7 @@ private:
 	void BuildWorldConstruction();
 
 	G4LogicalVolume* logicWorld;
+	G4ThreeVector worldSize = G4ThreeVector(10*CLHEP::cm, 10*CLHEP::cm, 10*CLHEP::cm);
 };
 
 #endif
