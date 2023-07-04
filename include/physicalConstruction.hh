@@ -21,7 +21,7 @@
 
 class PhysicalConstruction : public G4VUserDetectorConstruction {
 public:
-	PhysicalConstruction();
+	PhysicalConstruction(G4ThreeVector world);
 	~PhysicalConstruction();
 	
 	virtual G4VPhysicalVolume *Construct();
@@ -31,7 +31,7 @@ private:
 	void BuildWorldConstruction();
 
 	G4LogicalVolume* logicWorld;
-	G4ThreeVector worldSize = G4ThreeVector(10*CLHEP::cm, 10*CLHEP::cm, 10*CLHEP::cm);
+	G4ThreeVector worldSize;
 };
 
 #endif

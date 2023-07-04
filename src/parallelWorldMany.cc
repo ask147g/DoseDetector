@@ -1,7 +1,8 @@
 #include "parallelWorldMany.hh"
 
-ParallelWorldMany::ParallelWorldMany(G4String name, G4ThreeVector worldSizes)
-    :G4VUserParallelWorld(name) {
+ParallelWorldMany::ParallelWorldMany(G4String name, 
+    G4ThreeVector world, G4ThreeVector det)
+        :G4VUserParallelWorld(name), worldSize(world), detectorSize(det) {
 }
 
 ParallelWorldMany::~ParallelWorldMany() {
@@ -32,15 +33,25 @@ void ParallelWorldMany::SetupGeometry() {
             0, 
             "waterLogic");
 
-    G4VPhysicalVolume *waterWorld = 
-        new G4PVPlacement(
-            new G4RotationMatrix(0, 0., 0.), 
-			G4ThreeVector(0., 0., 0.), 
-			waterLogic, 
-			"waterLogic", 
-			logicWorld, 
-			false, 
-			0); 
+    int copy = 0;
+    for (int iX = 0; iX < worldSize.x()/detectorSize.x(); iX++) {
+        for (int iY = 0; iY < worldSize.y()/detectorSize.y(); iY++) {
+            for (int iZ = 0; iZ < worldSize.z()/detectorSize.z(); iZ++) {
+                new G4PVPlacement(
+                    new G4RotationMatrix(0, 0., 0.), 
+		        	G4ThreeVector(-worldSize.x()+detectorSize.x()+iX*(2*detectorSize.x()), 
+                        -worldSize.y()+detectorSize.y()+iY*(2*detectorSize.y()), 
+                        -worldSize.z()+detectorSize.z()+iZ*(2*detectorSize.z())), 
+		        	waterLogic, 
+		        	"physWorld_main", 
+		        	logicWorld, 
+		        	false, 
+		        	copy, 
+		        	false);
+                copy++;
+            }
+        } 
+    }
 }
 
 void ParallelWorldMany::SetupDetectors() {

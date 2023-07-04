@@ -7,6 +7,8 @@
 
 #include "run.hh"
 
+#include <fstream>
+
 class G4Run;
 
 class UserRunAction : public G4UserRunAction {

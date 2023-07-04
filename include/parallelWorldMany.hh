@@ -22,7 +22,7 @@ class G4VPhysicalVolume;
 
 class ParallelWorldMany : public G4VUserParallelWorld {
 public:
-    ParallelWorldMany(G4String, G4ThreeVector);
+    ParallelWorldMany(G4String, G4ThreeVector world, G4ThreeVector det);
     virtual ~ParallelWorldMany();
 
     virtual void Construct();
@@ -34,6 +34,7 @@ private:
 
     G4LogicalVolume *waterLogic;
     G4ThreeVector worldSize;
+    G4ThreeVector detectorSize;
 };
 
 #endif
