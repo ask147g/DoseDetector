@@ -19,6 +19,8 @@ file(COPY ${SCRIPTS} DESTINATION ${PROJECT_BINARY_DIR})
 
 file(GLOB PROCESSING "processing/*.py") 
 file(COPY ${PROCESSING} DESTINATION ${PROJECT_BINARY_DIR}/processing)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/dose)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/activity)
 
 add_executable(doseDetector doseDetector.cc ${sources} ${headers})
 target_link_libraries(doseDetector ${Geant4_LIBRARIES})

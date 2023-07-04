@@ -11,8 +11,7 @@
 #include "G4Geantino.hh"
 #include "G4IonTable.hh"
 
-class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction
-{
+class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction {
 public:
 	MyPrimaryGenerator();
 	~MyPrimaryGenerator();
