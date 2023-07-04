@@ -14,6 +14,12 @@ file(GLOB MACRO_FILES "*.mac")
 
 file(COPY ${MACRO_FILES} DESTINATION ${PROJECT_BINARY_DIR})
 
+file(GLOB SCRIPTS "*.sh") 
+file(COPY ${SCRIPTS} DESTINATION ${PROJECT_BINARY_DIR})
+
+file(GLOB PROCESSING "processing/*.py") 
+file(COPY ${PROCESSING} DESTINATION ${PROJECT_BINARY_DIR}/processing)
+
 add_executable(doseDetector doseDetector.cc ${sources} ${headers})
 target_link_libraries(doseDetector ${Geant4_LIBRARIES})
 
