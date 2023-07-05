@@ -3,6 +3,7 @@
 UserRun::UserRun() {
     G4SDManager* SDMan = G4SDManager::GetSDMpointer();
     fColIDSum = SDMan->GetCollectionID("doseDetector/Edep");
+    fColIDActivity = SDMan->GetCollectionID("doseDetector/Activity");
 }
 
 UserRun::~UserRun() {
@@ -15,7 +16,9 @@ void UserRun::RecordEvent(const G4Event* evt) {
         = (G4THitsMap<G4double>*)(HCE->GetHC(fColIDSum));
     fMapSum += *evtMap;
 
-    
+    G4THitsMap<G4double>* evtMapA 
+        = (G4THitsMap<G4double>*)(HCE->GetHC(fColIDActivity));
+    fMapActivity += *evtMapA;
 }
 
 G4double UserRun::GetTotal(const G4THitsMap<G4double> &map) const {

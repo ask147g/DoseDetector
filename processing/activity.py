@@ -3,11 +3,11 @@ import numpy as np
 
 detNum = [20, 20, 20]
 detSize = [1, 1, 1] # cm
-f = open('output.csv', 'r')
+f = open('activity.csv', 'r')
 
 doseRate = np.array([])
 for line in f:
-    doseRate = np.append(doseRate, line.rstrip())
+    doseRate = np.append(doseRate, float(line.rstrip()))
 
 yValue = np.array([])
 zValue = np.array([])
@@ -23,5 +23,5 @@ for i in range(detNum[0]):
     ax.set_ylabel('y, (cm)')
     ax.set_xlabel('z, (cm)')
     cp = ax.contourf(np.array(zValue[0:20], dtype=float), np.array(yValue[0:20], dtype=float), np.array(dose, dtype=float))
-    fig.colorbar(cp, label='H, pSv/sec')
-    plt.savefig(f'processing/dose/{i*detSize[0]+1/2*detSize[0]}_cm.png')
+    fig.colorbar(cp, label='A, Bq')
+    plt.savefig(f'processing/activity/{i*detSize[0]+1/2*detSize[0]}_cm.png')

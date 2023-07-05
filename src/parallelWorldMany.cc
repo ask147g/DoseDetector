@@ -56,9 +56,12 @@ void ParallelWorldMany::SetupGeometry() {
 
 void ParallelWorldMany::SetupDetectors() {
     G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
-    G4VPrimitiveScorer* primitive;
-    primitive = new EffectiveDose("Edep", 1);
-    det->RegisterPrimitive(primitive);
+    G4VPrimitiveScorer* doseRate;
+    G4VPrimitiveScorer* activity;
+    doseRate = new EffectiveDose("Edep");
+    activity = new InducedActivity("Activity");
+    det->RegisterPrimitive(doseRate);
+    det->RegisterPrimitive(activity);
     G4SDManager::GetSDMpointer()->AddNewDetector(det);
     SetSensitiveDetector(waterLogic, det);
 }

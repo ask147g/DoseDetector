@@ -3,4 +3,4 @@ cmake ..
 make -j12
 ./doseDetector run.mac
 
-python processing/doseRange.py
+python processing/doseRate.py

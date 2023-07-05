@@ -20,7 +20,7 @@ G4VPhysicalVolume* PhysicalConstruction::SetupGeometry() {
 
 G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
     G4NistManager *nist = G4NistManager::Instance();
-	G4Material *vacuum = nist->FindOrBuildMaterial("G4_AIR");
+	G4Material *vacuum = nist->FindOrBuildMaterial("G4_Pb");
     
     G4Box *solidWorld = 
         new G4Box(

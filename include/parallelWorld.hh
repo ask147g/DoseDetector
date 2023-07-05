@@ -16,6 +16,7 @@
 #include "G4RotationMatrix.hh"
 
 #include "EffectiveDose.hh"
+#include "InducedActivity.hh"
 
 class G4LogicalVolume;
 class G4VPhysicalVolume;

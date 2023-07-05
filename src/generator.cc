@@ -1,11 +1,11 @@
 #include "generator.hh"
 
 MyPrimaryGenerator::MyPrimaryGenerator() {
-	fParticleGun = new G4ParticleGun(1);
+	gun = new G4SingleParticleSource();
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator() {
-	delete fParticleGun;
+	delete gun;
 }
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
@@ -13,27 +13,15 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
 	G4ThreeVector pos = G4ThreeVector(-10*CLHEP::cm, 0*CLHEP::cm, 0);
 	G4ThreeVector mom = G4ThreeVector(1, 0, 0);
 	//G4double a = 1.3325*CLHEP::MeV;
-	//
-	G4ParticleDefinition *particle = particleTable->FindParticle("gamma");
-	//
-	//fParticleGun->SetParticlePosition(pos);
-	//fParticleGun->SetParticleMomentumDirection(mom);
-	//fParticleGun->SetParticleDefinition(particle);
-	//fParticleGun->SetParticleEnergy(a);
-	//fParticleGun->SetNumberOfParticles(1);
-	//
-	//fParticleGun->GeneratePrimaryVertex(anEvent);
-//
-	//a = 1.1732*CLHEP::MeV;
-	//fParticleGun->SetParticleEnergy(a);
-	//fParticleGun->GeneratePrimaryVertex(anEvent);
+	
+	G4ParticleDefinition *particle = particleTable->FindParticle("neutron");
 
-	gun = new G4SingleParticleSource();
 	gun->SetParticleDefinition(particle);
 	
 	G4SPSEneDistribution* energy = gun->GetEneDist();
 	energy->SetEnergyDisType("Mono");
-	energy->SetMonoEnergy(1.3325*CLHEP::MeV);
+	G4double a = 1.3325;
+	energy->SetMonoEnergy(50*CLHEP::MeV);
 	
 	G4SPSPosDistribution* position = gun->GetPosDist();
 	position->SetPosDisType("Point");
@@ -49,7 +37,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
 
 	gun->GeneratePrimaryVertex(anEvent);
 
-	energy->SetMonoEnergy(1.1732*CLHEP::MeV);
+	energy->SetMonoEnergy(100*CLHEP::MeV);
 
 	gun->GeneratePrimaryVertex(anEvent);
 }
