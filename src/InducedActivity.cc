@@ -24,8 +24,9 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   if (particle->GetAtomicNumber() == 0) return false;
   G4int pdg = particle->GetPDGEncoding();
   G4double energy = aStep->GetTrack()->GetTotalEnergy();
-  //G4cout << particle->GetParticleName() << " " << G4BestUnit(particle->GetPDGLifeTime(), "Time") << 
-  //  " " << particle->GetPDGLifeTime()/CLHEP::second << G4endl;
+  //////
+  G4cout << particle->GetParticleName() << " " << G4BestUnit(particle->GetPDGLifeTime(), "Time") << G4endl;
+  //////
   G4int idx = ((G4TouchableHistory*) (aStep->GetPreStepPoint()->GetTouchable()))
                 ->GetReplicaNumber(indexDepth);
 

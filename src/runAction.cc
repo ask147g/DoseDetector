@@ -27,9 +27,9 @@ void UserRunAction::EndOfRunAction(const G4Run* aRun) {
         for (int x = 0; x < 20; x++) {
             for (int y = 0; y < 20; y++) {
                 for (int z = 0; z < 20; z++) {
-                    out << theRun->GetTotalE(x, y, z)*0.25/CLHEP::joule*CLHEP::kilogram/1.e-12 << std::endl;
+                    out << theRun->GetTotalE(x, y, z)*0.25 << std::endl;
+                    //out << theRun->GetTotalE(x, y, z)*0.25/CLHEP::joule*CLHEP::kilogram/1.e-12 << std::endl;
                     outActivity << theRun->GetActivity(x, y, z)*0.25 << std::endl;
-                    //out << G4BestUnit(theRun->GetTotalE(x, y, z)*0.25, "Effective Dose") << std::endl;
                 }
             }
         }
