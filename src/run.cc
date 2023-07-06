@@ -21,6 +21,15 @@ void UserRun::RecordEvent(const G4Event* evt) {
     fMapActivity += *evtMapA;
 }
 
+void UserRun::Merge(const G4Run * aRun) {
+  const UserRun * localRun = static_cast<const UserRun *>(aRun);
+
+  fMapSum += localRun->fMapSum;
+  fMapActivity += localRun->fMapActivity;
+
+  G4Run::Merge(aRun);
+}
+
 G4double UserRun::GetTotal(const G4THitsMap<G4double> &map) const {
   G4double tot = 0.;
   if(map.GetSize()==0) return tot;
@@ -31,6 +40,7 @@ G4double UserRun::GetTotal(const G4THitsMap<G4double> &map) const {
   return tot;
 }
 
+// amount of detectors
 G4double UserRun::GetTotalPara(int xx, int yy, int zz, const G4THitsMap<G4double> &map) const {
   G4double tot[20][20][20] = {0., 0., 0.};
   if(map.GetSize()==0) return tot[xx][yy][zz];

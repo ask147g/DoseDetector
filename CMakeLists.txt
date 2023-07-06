@@ -19,8 +19,10 @@ file(COPY ${SCRIPTS} DESTINATION ${PROJECT_BINARY_DIR})
 
 file(GLOB PROCESSING "processing/*.py") 
 file(COPY ${PROCESSING} DESTINATION ${PROJECT_BINARY_DIR}/processing)
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/dose)
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/activity)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/dose/plot)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/dose/table)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/activity/plot)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/activity/table)
 
 add_executable(doseDetector doseDetector.cc ${sources} ${headers})
 target_link_libraries(doseDetector ${Geant4_LIBRARIES})

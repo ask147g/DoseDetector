@@ -1,7 +1,7 @@
 #include <iostream>
 
 
-#include "G4RunManager.hh"
+#include "G4RunManagerFactory.hh"
 
 #include "G4UImanager.hh"
 #include "G4VisManager.hh"
@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     G4UIExecutive* ui = nullptr;
     if ( argc == 1 ) { ui = new G4UIExecutive(argc, argv); }
 
-	G4RunManager *runManager = new G4RunManager();
+    auto runManager = G4RunManagerFactory::CreateRunManager();
 	
 
     G4ThreeVector worldSize = G4ThreeVector(10*CLHEP::cm, 10*CLHEP::cm, 10*CLHEP::cm);

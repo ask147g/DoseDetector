@@ -17,6 +17,7 @@ public:
     virtual ~UserRun();
     
     virtual void RecordEvent(const G4Event*);
+    virtual void Merge(const G4Run*);
 
     G4double GetTotalE(int xx, int yy, int zz) const    { return GetTotalPara(xx, yy, zz, fMapSum); }
     G4double GetActivity(int xx, int yy, int zz) const    { return GetTotalPara(xx, yy, zz, fMapActivity); }

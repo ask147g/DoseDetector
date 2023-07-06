@@ -5,6 +5,7 @@
 
 #include "G4ParticleGun.hh"
 #include "G4SingleParticleSource.hh"
+#include "G4GeneralParticleSource.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ParticleTable.hh"
 
@@ -19,7 +20,7 @@ public:
 	virtual void GeneratePrimaries(G4Event*);
 	
 private:
-	G4SingleParticleSource *gun;
+	G4GeneralParticleSource *gun;
 };
 
 #endif

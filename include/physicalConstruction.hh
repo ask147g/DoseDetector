@@ -17,6 +17,8 @@
 
 #include "EffectiveDose.hh"
 
+#include "G4Element.hh"
+
 #include <vector>
 
 class PhysicalConstruction : public G4VUserDetectorConstruction {

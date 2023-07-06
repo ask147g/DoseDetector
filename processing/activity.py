@@ -24,4 +24,4 @@ for i in range(detNum[0]):
     ax.set_xlabel('z, (cm)')
     cp = ax.contourf(np.array(zValue[0:20], dtype=float), np.array(yValue[0:20], dtype=float), np.array(dose, dtype=float))
     fig.colorbar(cp, label='A, Bq')
-    plt.savefig(f'processing/activity/{i*detSize[0]+1/2*detSize[0]}_cm.png')
+    plt.savefig(f'processing/activity/plot/{i*detSize[0]+1/2*detSize[0]}_cm.png')
