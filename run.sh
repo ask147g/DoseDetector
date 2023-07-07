@@ -1,7 +1,7 @@
 #!/bin/bash
 cmake ..
 make -j12
-./doseDetector neutron.mac
+./doseDetector forward.mac
 
 python processing/doseRate.py
 python processing/activity.py
