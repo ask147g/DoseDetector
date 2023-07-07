@@ -28,7 +28,7 @@ G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
     Mo98->AddIsotope(iso98, 100*CLHEP::perCent);
 
     G4Material* matMo= new G4Material("Mo98 mat" , 10.22*CLHEP::g/cm3, 1, kStateSolid);
-    matMo>AddElement( Mo98, 1.00);
+    matMo->AddElement(Mo98, 1.00);
 
     G4Box *solidWorld = 
         new G4Box(

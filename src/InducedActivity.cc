@@ -22,7 +22,7 @@ void InducedActivity::Initialize(G4HCofThisEvent* HCE) {
 
 G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   auto particle = aStep->GetTrack()->GetParticleDefinition();
-  if (particle->GetIonLifeTime() < 0) return false;
+  if (particle->GetIonLifeTime() < 1*CLHEP::second) return false;
   if (aStep->GetTrack()->GetParentID() == 0) return false;
   if (particle->GetAtomicNumber() == 0) return false;
   G4int pdg = particle->GetPDGEncoding();
@@ -33,10 +33,10 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   G4int idx = ((G4TouchableHistory*) (aStep->GetPreStepPoint()->GetTouchable()))
                 ->GetReplicaNumber(indexDepth);
 
-  //G4double activity = (1-std::exp(-std::log(2)*std::log(2)/particle->GetIonLifeTime()/CLHEP::second*radiatedTime))/radiatedTime*std::exp(-std::log(2)*std::log(2)/particle->GetIonLifeTime()/CLHEP::second);
-  G4double activity = (1-std::exp(-std::log(2)*std::log(2)/particle->GetIonLifeTime()/CLHEP::second*radiatedTime))/radiatedTime;
-  //G4double activity = 1;
-  G4cout << std::exp(-std::log(2)*std::log(2)/particle->GetIonLifeTime()/CLHEP::second) << G4endl;
+  G4double activity = (1-std::exp(-std::log(2)*std::log(2)/(particle->GetIonLifeTime()/CLHEP::second)*radiatedTime))*std::exp(-std::log(2)*std::log(2)/(particle->GetIonLifeTime()/CLHEP::second))/radiatedTime;
+  //G4double activity = (1-std::exp(-std::log(2)*std::log(2)/particle->GetIonLifeTime()/CLHEP::second*radiatedTime))/radiatedTime;
+  //G4double activity = std::exp(-std::log(2)*std::log(2)/(particle->GetIonLifeTime()/CLHEP::second));
+  //G4cout << std::exp(-std::log(2)*std::log(2)/particle->GetIonLifeTime()/CLHEP::second) << G4endl;
   G4int index = GetIndex(aStep);
   
   EvtMap->add(index, activity);

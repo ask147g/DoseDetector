@@ -19,7 +19,7 @@
 
 class InducedActivity : public G4VPrimitivePlotter {
 public:
-	InducedActivity(G4String name, G4double t = 1, G4int depth = 0);
+	InducedActivity(G4String name, G4double t = 360000, G4int depth = 0);
 	~InducedActivity() override = default	;
 	
 	void Initialize(G4HCofThisEvent*);

@@ -18,6 +18,8 @@
 #include "EffectiveDose.hh"
 
 #include "G4Element.hh"
+#include "G4Isotope.hh"
+#include "G4Material.hh"
 
 #include <vector>
 
