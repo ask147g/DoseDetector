@@ -19,15 +19,17 @@
 
 class InducedActivity : public G4VPrimitivePlotter {
 public:
-	InducedActivity(G4String name, G4double t = 360000, G4int depth = 0);
+	InducedActivity(G4String name, G4int depth = 0);
 	~InducedActivity() override = default	;
 	
 	void Initialize(G4HCofThisEvent*);
 
 private:
 	G4int HCID;
+	//G4THitsMap<G4double>* EvtMap;
+						// name   // life time
 	G4THitsMap<G4double>* EvtMap;
-  G4double radiatedTime;
+	G4THitsMap<G4String>* EvtMapName;
 
 protected:
 	G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;

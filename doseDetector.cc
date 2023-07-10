@@ -25,12 +25,12 @@ int main(int argc, char** argv) {
     auto runManager = G4RunManagerFactory::CreateRunManager();
 	
 
-    G4ThreeVector worldSize = G4ThreeVector(10*CLHEP::cm, 10*CLHEP::cm, 10*CLHEP::cm);
+    G4ThreeVector worldSize = G4ThreeVector(0.5*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
 	G4ThreeVector detectorSize = G4ThreeVector(0.5*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
 
     PhysicalConstruction* world = new PhysicalConstruction(worldSize);
     G4String parallelWorldName = "ParallelWorld";
-    world->RegisterParallelWorld(new ParallelWorldMany(parallelWorldName, worldSize, detectorSize));
+    world->RegisterParallelWorld(new ParallelWorld(parallelWorldName));
 	runManager->SetUserInitialization(world);
     
     auto physics = new QBBC();

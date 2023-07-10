@@ -1,11 +1,11 @@
 #include "InducedActivity.hh"
 #include "G4VProcess.hh"
 
-InducedActivity::InducedActivity(G4String name, G4double t, G4int depth)
+InducedActivity::InducedActivity(G4String name, G4int depth)
   : G4VPrimitivePlotter(name, depth),
     HCID(-1),
     EvtMap(nullptr),
-    radiatedTime(t) {
+    EvtMapName(nullptr) {
       new G4UnitDefinition("millibecquerel", "milliBq", "Activity", 1.e-3*CLHEP::Bq);
       new G4UnitDefinition("microbecquerel", "microBq", "Activity", 1.e-6*CLHEP::Bq);
       new G4UnitDefinition("nanobecquerel", "nanoBq", "Activity", 1.e-9*CLHEP::Bq);
@@ -15,10 +15,15 @@ InducedActivity::InducedActivity(G4String name, G4double t, G4int depth)
 void InducedActivity::Initialize(G4HCofThisEvent* HCE) {
   EvtMap = new G4THitsMap<G4double>(GetMultiFunctionalDetector()->GetName(),
                                     GetName());
+
+  EvtMapName = new G4THitsMap<G4String>(GetMultiFunctionalDetector()->GetName(),
+                                    GetName());
+
   if(HCID < 0) {
     HCID = GetCollectionID(0);
   }
   HCE->AddHitsCollection(HCID, (G4VHitsCollection*) EvtMap);
+  HCE->AddHitsCollection(HCID+1, (G4VHitsCollection*) EvtMapName);
 }
 
 G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
@@ -31,12 +36,18 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   //G4cout << aStep->GetTrack()->GetCreatorProcess()->GetProcessName() << G4endl;
   //G4cout << particle->GetParticleName() << " " << G4BestUnit(particle->GetIonLifeTime()/std::log(2), "Time") << G4endl;
   
-  //G4double activity = (1-std::exp(-std::log(2)*std::log(2)/(particle->GetIonLifeTime()/CLHEP::second)*radiatedTime))*std::exp(-std::log(2)*std::log(2)/(particle->GetIonLifeTime()/CLHEP::second))/radiatedTime;
-  G4double activity = std::log(2)*std::log(2)/(particle->GetIonLifeTime()/CLHEP::second)*std::exp(-std::log(2)*std::log(2)/(particle->GetIonLifeTime()/CLHEP::second));
+  //auto activity = std::make_pair(particle->GetParticleName() ,particle->GetIonLifeTime()/CLHEP::second);
   
+  G4double activity = particle->GetIonLifeTime()/CLHEP::second;
+  G4String name = particle->GetParticleName();
+
   G4int index = GetIndex(aStep);
   
   EvtMap->add(index, activity);
+  EvtMapName->add(index, name);
+
+  // non-radioactive
+  if (aStep->GetTrack()->GetParentID() == 0) return false; // only secondary particles
 
   return true;
 }
