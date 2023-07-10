@@ -1,5 +1,6 @@
 #include "run.hh"
 #include <fstream>
+#include "Hit.hh"
 
 UserRun::UserRun() {
     G4SDManager* SDMan = G4SDManager::GetSDMpointer();
@@ -17,25 +18,15 @@ void UserRun::RecordEvent(const G4Event* evt) {
         = (G4THitsMap<G4double>*)(HCE->GetHC(fColIDSum));
     fMapSum += *evtMap;
 
-    G4THitsMap<G4double>* evtMapA
-        = (G4THitsMap<G4double>*)(HCE->GetHC(fColIDActivity));
-
-    G4THitsMap<G4String>* evtMapName 
-        = (G4THitsMap<G4String>*)(HCE->GetHC(fColIDActivity));
-
-    std::map<G4int,G4String*>::iterator itr = evtMapName->GetMap()->begin();
-    std::map<G4int,G4double*>::iterator lifeTime = evtMapA->GetMap()->begin();
-    for(; itr != evtMapName->GetMap()->end(); itr++) {
-      G4int key = (itr->first);
-      G4String val = *(itr->second);
-      if (auto map = nuclides.find(val); map != nuclides.end()) {
+    HitsCollection* AHC = 0;
+    AHC = (HitsCollection*)(HCE->GetHC(fColIDActivity));
+    for (int i = 0; i < AHC->entries(); i++) {
+      if (auto map = nuclides.find((*AHC)[i]->GetName()); map != nuclides.end()) {
         ++(map->second.first);
       }
       else {
-        nuclides.insert({val, std::make_pair(1, *(lifeTime->second))});
-        //G4cout << *(lifeTime->second) << G4endl;
+        nuclides.insert({(*AHC)[i]->GetName(), std::make_pair(1, (*AHC)[i]->GetLifeTime())});
       }
-      ++lifeTime;
     }
 }
 
@@ -68,15 +59,13 @@ G4double UserRun::GetTotal(const G4THitsMap<G4double> &map) const {
   return tot;
 }
 
-G4double UserRun::GetTotalOne() const {
-  std::map<G4int,G4String*>::iterator itr = fMapActivityName.GetMap()->begin();
-
+std::map<G4String, std::pair<G4int, G4double> > UserRun::GetTotalOne() const {
   auto it = nuclides.begin();
   for(; it != nuclides.end(); it++) {
     G4cout << it->first << " " << it->second.first << " " << it->second.second << std::endl;
   }
 
-  return 0.;
+  return nuclides;
 }
 
 // amount of detectors
@@ -85,7 +74,6 @@ G4double UserRun::GetTotalPara(int xx, int yy, int zz, const G4THitsMap<G4double
   if(map.GetSize()==0) return tot[xx][yy][zz];
   std::map<G4int,G4double*>::iterator itr = map.GetMap()->begin();
   for(; itr != map.GetMap()->end(); itr++) {
-    //G4cout << *(itr->second) << G4endl;
     const int x = (itr->first / 400);
     const int y = (itr->first - x*400) / 20;
     const int z = itr->first - x* 400 - y*20;

@@ -50,7 +50,6 @@ void ParallelWorld::SetupDetectors() {
     G4VPrimitiveScorer* activity2;
     doseRate = new EffectiveDose("Edep");
     activity = new InducedActivity("Activity");
-    activity2 = new InducedActivity("Activity2");
     det->RegisterPrimitive(doseRate);
     det->RegisterPrimitive(activity);
     G4SDManager::GetSDMpointer()->AddNewDetector(det);

@@ -30,6 +30,7 @@ private:
 						// name   // life time
 	G4THitsMap<G4double>* EvtMap;
 	G4THitsMap<G4String>* EvtMapName;
+	HitsCollection* tracker; 
 
 protected:
 	G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;

@@ -23,7 +23,7 @@ public:
     virtual void Merge(const G4Run*);
 
     G4double GetTotalE(int xx, int yy, int zz) const    { return GetTotalPara(xx, yy, zz, fMapSum); }
-    G4double GetTotalOne() const;
+    std::map<G4String, std::pair<G4int, G4double> > GetTotalOne() const;
     G4double GetActivity(int xx, int yy, int zz) const    { return GetTotalPara(xx, yy, zz, fMapActivity); }
     G4double GetActivityy(int xx, int yy, int zz) const    { return GetTotalNuclides(xx, yy, zz); }
 private:

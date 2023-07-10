@@ -14,17 +14,12 @@ InducedActivity::InducedActivity(G4String name, G4int depth)
 }
 
 void InducedActivity::Initialize(G4HCofThisEvent* HCE) {
-  EvtMap = new G4THitsMap<G4double>(GetMultiFunctionalDetector()->GetName(),
-                                    GetName());
-
-  EvtMapName = new G4THitsMap<G4String>(GetMultiFunctionalDetector()->GetName(),
-                                    GetName());
-
+  tracker = new HitsCollection(GetMultiFunctionalDetector()->GetName(), GetName());
+  
   if(HCID < 0) {
     HCID = GetCollectionID(0);
   }
-  HCE->AddHitsCollection(HCID, (G4VHitsCollection*) EvtMap);
-  //HCE->AddHitsCollection(HCID, (G4VHitsCollection*) EvtMapName);
+  HCE->AddHitsCollection(HCID, tracker);
 }
 
 G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
@@ -36,17 +31,17 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   
   //G4cout << aStep->GetTrack()->GetCreatorProcess()->GetProcessName() << G4endl;
   //G4cout << particle->GetParticleName() << " " << G4BestUnit(particle->GetIonLifeTime()/std::log(2), "Time") << G4endl;
-  
-  //auto activity = std::make_pair(particle->GetParticleName() ,particle->GetIonLifeTime()/CLHEP::second);
-  
+    
   G4double activity = particle->GetIonLifeTime()/CLHEP::second;
   G4String name = particle->GetParticleName();
 
   G4int index = GetIndex(aStep);
-  ++nucl;
-  G4cout << nucl << G4endl;
-  EvtMap->set(index, nucl);
-  //EvtMapName->add(index, name);
+  ActivityHit* newHit = new ActivityHit();
+  newHit->SetName(name);
+  newHit->SetLifeTime(activity);
+  tracker->insert(newHit);
+  //++nucl;
+  //G4cout << nucl << G4endl;
 
   // non-radioactive
   //if (aStep->GetTrack()->GetParentID() == 0) return false; // only secondary particles

@@ -34,7 +34,12 @@ void UserRunAction::EndOfRunAction(const G4Run* aRun) {
                     }
                 }
             }
-                        outActivity << theRun->GetTotalOne() << std::endl;
+                        auto nuclides = theRun->GetTotalOne();
+                        auto it = nuclides.begin();
+                        for(; it != nuclides.end(); it++) {
+                          outActivity << it->first << " " << it->second.first << " " << it->second.second << std::endl;
+                        }
+                        //outActivity << theRun->GetTotalOne() << std::endl;
         }
         out.close(); 
         outActivity.close(); 

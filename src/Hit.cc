@@ -1,14 +1,13 @@
 #include "Hit.hh"
 
-Hit::Hit() {
+ActivityHit::ActivityHit() {
 }
 
-Hit::~Hit() {
+ActivityHit::~ActivityHit() {
 }
 
-void Hit::Draw() {
+void ActivityHit::Draw() {
 }
 
-void Hit::Print() {
+void ActivityHit::Print() {
 }
-

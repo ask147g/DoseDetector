@@ -3,19 +3,28 @@
 
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
+#include "G4Allocator.hh"
 
-class Hit : public G4VHit {   
+class ActivityHit : public G4VHit {   
 public:
-    Hit();
-    ~Hit();
+    ActivityHit();
+    ~ActivityHit();
 
-    void Draw() const;
-    void Print() const;
+    virtual void Draw();
+    virtual void Print();
+
+    void SetName(G4String particle) {name = particle;}
+    G4String GetName() {return name;}
+    void SetLifeTime(G4double life) {lifeTime = life;}
+    G4double GetLifeTime() {return lifeTime;}
 
 private:
-
+    G4String name;
+    G4double lifeTime;
 };
 
-typedef G4THitsCollection<Hit> HitsCollection;
+typedef G4THitsCollection<ActivityHit> HitsCollection;
+
+extern G4ThreadLocal G4Allocator<ActivityHit>* ActivityHitAllocator;
 
 #endif
