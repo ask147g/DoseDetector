@@ -10,12 +10,11 @@
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4VScoreHistFiller.hh"
+#include "Hit.hh"
 
 #include <iostream>
 #include <map>
 #include <utility>
-
-// time in seconds
 
 class InducedActivity : public G4VPrimitivePlotter {
 public:
@@ -26,6 +25,7 @@ public:
 
 private:
 	G4int HCID;
+	G4double nucl;
 	//G4THitsMap<G4double>* EvtMap;
 						// name   // life time
 	G4THitsMap<G4double>* EvtMap;

@@ -11,14 +11,13 @@ G4Fluence = [11801.2, 8490.65, 5796.38, 3926.18, 2648.74, 1792, 1210.14, 816.527
 for i in range(len(G4Fluence)):
     G4Fluence[i] *= 1000
 
-print(len(G4Fluence*1000))
 # consts
-AvogadroNumber = 0.029013628e23
+AvogadroNumber = 6.02214082e23
 
 # target
 density = 10.22 # g/cm3
 mu = 98 # g/mol
-x, y, z = [20, 1, 1] # cm
+x, y, z = [1, 1, 1] # cm
 area = z*y
 r = [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5, 18.5, 19.5] # cm
 
@@ -28,7 +27,7 @@ time = 1
 
 # reaction
 #sigma = 6.28227e-24 # cm2
-sigma = (1.1736908+0.029013628)*1e-24 # cm2 total for N
+sigma = (0.029013628)*1e-24 # cm2 total for N
 coolTime = 1 # sec
 
 # product
@@ -39,11 +38,13 @@ V = x*y*z
 
 fluence = []
 activity = []
+test = []
 for i in range(len(r)):
     fluence.append(Bq/area/time*math.exp(-sigma*N*V*i*r[i]))
     activity.append(N*sigma*fluence[i]*math.log(2)/halfLife*math.exp(-math.log(2)/halfLife*coolTime))
+    test.append(sigma*N*V*fluence[i])
 
-print(fluence)
+print(test)
 fig,ax=plt.subplots(1,1)
 ax.set_xlabel('r, (cm)')
 ax.set_ylabel('A, Bq')

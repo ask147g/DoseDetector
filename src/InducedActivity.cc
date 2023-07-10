@@ -5,7 +5,8 @@ InducedActivity::InducedActivity(G4String name, G4int depth)
   : G4VPrimitivePlotter(name, depth),
     HCID(-1),
     EvtMap(nullptr),
-    EvtMapName(nullptr) {
+    EvtMapName(nullptr),
+    nucl(0) {
       new G4UnitDefinition("millibecquerel", "milliBq", "Activity", 1.e-3*CLHEP::Bq);
       new G4UnitDefinition("microbecquerel", "microBq", "Activity", 1.e-6*CLHEP::Bq);
       new G4UnitDefinition("nanobecquerel", "nanoBq", "Activity", 1.e-9*CLHEP::Bq);
@@ -23,7 +24,7 @@ void InducedActivity::Initialize(G4HCofThisEvent* HCE) {
     HCID = GetCollectionID(0);
   }
   HCE->AddHitsCollection(HCID, (G4VHitsCollection*) EvtMap);
-  HCE->AddHitsCollection(HCID+1, (G4VHitsCollection*) EvtMapName);
+  //HCE->AddHitsCollection(HCID, (G4VHitsCollection*) EvtMapName);
 }
 
 G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
@@ -42,12 +43,13 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   G4String name = particle->GetParticleName();
 
   G4int index = GetIndex(aStep);
-  
-  EvtMap->add(index, activity);
-  EvtMapName->add(index, name);
+  ++nucl;
+  G4cout << nucl << G4endl;
+  EvtMap->set(index, nucl);
+  //EvtMapName->add(index, name);
 
   // non-radioactive
-  if (aStep->GetTrack()->GetParentID() == 0) return false; // only secondary particles
+  //if (aStep->GetTrack()->GetParentID() == 0) return false; // only secondary particles
 
   return true;
 }
