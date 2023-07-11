@@ -16,8 +16,8 @@
 #include "action.hh"
 
 int main(int argc, char** argv) {
-    CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
-    CLHEP::HepRandom::setTheSeed(time(NULL));
+    CLHEP::HepRandom::setTheEngine(new CLHEP::MTwistEngine); 
+    CLHEP::HepRandom::setTheSeed((unsigned)clock()); 
 
     G4UIExecutive* ui = nullptr;
     if ( argc == 1 ) { ui = new G4UIExecutive(argc, argv); }

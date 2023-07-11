@@ -28,8 +28,7 @@ void UserRunAction::EndOfRunAction(const G4Run* aRun) {
             for (int x = 0; x < 20; x++) {
                 for (int y = 0; y < 20; y++) {
                     for (int z = 0; z < 20; z++) {
-                        //out << theRun->GetTotalE(x, y, z) << std::endl;
-                        //out << theRun->GetTotalE(x, y, z)*0.25/CLHEP::joule*CLHEP::kilogram/1.e-12 << std::endl;
+                        out << theRun->GetTotalE(x, y, z)/CLHEP::joule*CLHEP::kilogram/1.e-12 << std::endl;
                         //outActivity << theRun->GetActivityy(x, y, z) << std::endl;
                     }
                 }
@@ -39,7 +38,6 @@ void UserRunAction::EndOfRunAction(const G4Run* aRun) {
                         for(; it != nuclides.end(); it++) {
                           outActivity << it->first << " " << it->second.first << " " << it->second.second << std::endl;
                         }
-                        //outActivity << theRun->GetTotalOne() << std::endl;
         }
         out.close(); 
         outActivity.close(); 

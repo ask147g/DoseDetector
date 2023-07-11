@@ -3,17 +3,9 @@
 
 #include "G4VPrimitivePlotter.hh"
 #include "G4THitsMap.hh"
-
 #include "G4VSolid.hh"
-#include "G4VPhysicalVolume.hh"
-#include "G4VPVParameterisation.hh"
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
-#include "G4VScoreHistFiller.hh"
-
-#include <iostream>
-#include <map>
-#include <utility>
 
 // ICRP, 2010. Conversion Coefficients for Radiological Protection Quantities for External Radiation Exposures. ICRP Publication 116, Ann. ICRP 40(2-5).
 // Effective dose per fluence, in units of pSv cm 2, for mono-energetic particles incident in various geometries.
@@ -21,7 +13,7 @@
 
 // geometry 0 for AP, 1 for PA, 2 for ISO
 
-enum {AP = 1, PA = 2, ISO = 3};
+//enum {AP = 1, PA = 2, ISO = 3};
 
 static constexpr double sievert = joule/kilogram ;
 static constexpr double millisievert = 1.e-3*sievert;

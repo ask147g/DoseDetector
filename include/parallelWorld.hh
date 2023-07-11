@@ -2,18 +2,12 @@
 #define PARALLEL_WORLD_HH
 
 #include "G4VUserParallelWorld.hh"
-#include "globals.hh"
-
 #include "G4VPhysicalVolume.hh"
 #include "G4LogicalVolume.hh"
 #include "G4Box.hh"
 #include "G4PVPlacement.hh"
-#include "G4NistManager.hh"
 #include "G4MultiFunctionalDetector.hh"
 #include "G4SDManager.hh"
-#include "G4VPrimitiveScorer.hh"
-#include "G4PSDoseDeposit.hh"
-#include "G4RotationMatrix.hh"
 
 #include "EffectiveDose.hh"
 #include "InducedActivity.hh"

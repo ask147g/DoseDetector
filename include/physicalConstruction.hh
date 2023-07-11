@@ -1,5 +1,5 @@
-#ifndef CONSTRUCTION.HH
-#define CONSTRUCTION.HH
+#ifndef CONSTRUCTION_HH
+#define CONSTRUCTION_HH
 
 #include "G4VUserDetectorConstruction.hh"
 #include "G4VPhysicalVolume.hh"
