@@ -1,7 +1,9 @@
 # Источник 1
-/gps/particle neutron
+/
+
+/gps/particle gamma
 /gps/ene/type Mono
-/gps/ene/mono 1.1732 MeV 
+/gps/ene/mono 20 MeV 
 /gps/pos/type Point
 /gps/pos/centre -0.5 0 0 cm
 /gps/ang/type planar

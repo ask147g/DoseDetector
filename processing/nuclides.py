@@ -1,6 +1,6 @@
 import math
 
-f = open('activity.csv', 'r')
+f = open('HP/endf.csv', 'r')
 
 # consts
 AvogadroNumber = 6.02214082e23
@@ -13,17 +13,15 @@ area = z*y
 r = 0 # cm
 
 # reaction
-# TENDL-2021
-#    Mo99(N,INL)Mo99     Mo98(N,G)Mo99
-#    neutronInelastic    nCapture
-#sigma = (2.1940424+0.014468811)*1e-24 # cm2
-#sigma = 0.014468811e-24
+#    Mo98(N,INL)Mo99     Mo98(N,G)Mo99
 # ENDF/B-VIII.0
-#sigma = (1.8429065+0.029013628)*1e-24 # cm2
-#sigma = (1.1736908+0.029013628)*1e-24 # cm2 # INL for Mo98
-#sigma = (0.86113628)*1e-24 # cm2
-sigma = (1.1736908)*1e-24 # cm2
+# 98
+sigmaINL = (1.1736908)*1e-24 # cm2
+sigmaNG = (0.028616352)*1e-24
 
+# 100 
+#sigmaINL = (0)*1e-24 # cm2
+#sigmaNG = (0.0316967)*1e-24
 
 # source
 Bq = 10000000
@@ -52,8 +50,8 @@ for i in range(len(ions)):
     if (ions[i] == "Mo99"):
         NGReaction += nuclides[i]
 
-fluence = Bq/area*math.exp(-sigma*N*V*r)
-nuclei = sigma*N*V*fluence
+fluence = Bq/area
+nuclei = (sigmaNG)*N*V*fluence
 
 print(f"Geant4: {sum}; Calculate: {nuclei}.\n")
 print(f"Difference g4/calc: {sum/nuclei}")

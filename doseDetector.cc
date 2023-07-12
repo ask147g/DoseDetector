@@ -8,6 +8,7 @@
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
 #include "QBBC.hh"
+#include "QGSP_BERT_HP.hh"
 #include "G4ParallelWorldPhysics.hh"
 
 #include "physicalConstruction.hh"
@@ -16,8 +17,8 @@
 #include "action.hh"
 
 int main(int argc, char** argv) {
-    CLHEP::HepRandom::setTheEngine(new CLHEP::MTwistEngine); 
-    CLHEP::HepRandom::setTheSeed((unsigned)clock()); 
+    //CLHEP::HepRandom::setTheEngine(new CLHEP::MTwistEngine); 
+    //CLHEP::HepRandom::setTheSeed((unsigned)clock()); 
 
     G4UIExecutive* ui = nullptr;
     if ( argc == 1 ) { ui = new G4UIExecutive(argc, argv); }
@@ -33,7 +34,8 @@ int main(int argc, char** argv) {
     world->RegisterParallelWorld(new ParallelWorld(parallelWorldName));
 	runManager->SetUserInitialization(world);
     
-    auto physics = new QBBC();
+    auto physics = new QGSP_BERT_HP();
+    
     physics->RegisterPhysics(new G4ParallelWorldPhysics(parallelWorldName));
     runManager->SetUserInitialization(physics);
 	runManager->SetUserInitialization(new MyActionInitialization());
