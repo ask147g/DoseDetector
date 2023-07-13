@@ -7,11 +7,11 @@
 
 class ActivityHit : public G4VHit {   
 public:
-    ActivityHit();
-    ~ActivityHit();
+    ActivityHit() {};
+    ~ActivityHit() {};
 
-    virtual void Draw();
-    virtual void Print();
+    virtual void Draw() {};
+    virtual void Print() {};
 
     void SetName(G4String particle) {name = particle;}
     G4String GetName() {return name;}

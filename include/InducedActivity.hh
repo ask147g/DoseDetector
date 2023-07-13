@@ -4,6 +4,7 @@
 #include "G4VPrimitivePlotter.hh"
 #include "G4UnitsTable.hh"
 #include "G4VProcess.hh"
+#include "G4VCrossSectionDataSet.hh"
 
 #include "Hit.hh"
 
@@ -21,6 +22,7 @@ private:
 
 protected:
 	G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;
+	G4VCrossSectionDataSet* cross;
 };
 
 #endif
