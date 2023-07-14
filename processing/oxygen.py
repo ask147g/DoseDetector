@@ -13,8 +13,8 @@ area = z*y
 
 # reaction
 # ENDF/B-VIII.0
-sigma = (3.8580363)*1e-24
-#sigma = 2.7555299e-24
+#sigma = (3.8580363)*1e-24
+sigma = 2.7555299e-24
 # source
 Bq = 10000000
 
