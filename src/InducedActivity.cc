@@ -1,15 +1,11 @@
 #include "InducedActivity.hh"
 #include "G4VProcess.hh"
 
+#include <fstream>
+
 InducedActivity::InducedActivity(G4String name, G4int depth)
   : G4VPrimitivePlotter(name, depth),
     HCID(-1) {
-      nucl = 0;
-      new G4UnitDefinition("millibecquerel", "milliBq", "Activity", 1.e-3*CLHEP::Bq);
-      new G4UnitDefinition("microbecquerel", "microBq", "Activity", 1.e-6*CLHEP::Bq);
-      new G4UnitDefinition("nanobecquerel", "nanoBq", "Activity", 1.e-9*CLHEP::Bq);
-      new G4UnitDefinition("picobecquerel", "picoBq", "Activity", 1.e-12*CLHEP::Bq);
-      cross = new G4VCrossSectionDataSet("cross");
 }
 
 void InducedActivity::Initialize(G4HCofThisEvent* HCE) {
@@ -31,9 +27,8 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   //if (particle->GetAtomicNumber() == 0) return false; // n, e-, etc
   //if (aStep->GetTrack()->GetCreatorProcess() && aStep->GetTrack()->GetCreatorProcess()->GetProcessName() == "Decay") return false;
   
-  if (aStep->GetTrack()->GetCreatorProcess()->GetProcessName() == "photonNuclear") return false;
+  //if (aStep->GetTrack()->GetCreatorProcess()->GetProcessName() == "photonNuclear") return false;
   
-  G4double crSection = cross->GetCrossSection(aStep->GetTrack()->GetDynamicParticle(), aStep->GetTrack()->GetMaterial()->)
   //if (aStep->GetTrack()->GetCreatorProcess()->GetProcessName() == "neutronInelastic") return false;
   //if (aStep->GetTrack()->GetCreatorProcess()->GetProcessName() == "nCapture") return false;
 
@@ -44,6 +39,12 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   //if (particle->GetParticleName() != "Mo100" && 
   //  aStep->GetTrack()->GetParentID() != 1) return false;
 
+  std::ofstream test;
+  test.open("test.csv", std::ios::app);
+  if (test.is_open()) {
+    test << particle->GetParticleName() << " " << aStep->GetTrack()->GetCreatorProcess()->GetProcessName() << std::endl;
+  }
+
   G4double activity = particle->GetIonLifeTime()/CLHEP::second;
   G4String name = particle->GetParticleName();
 
@@ -52,9 +53,6 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   newHit->SetName(name);
   newHit->SetLifeTime(activity);
   tracker->insert(newHit);
-
-  //nucl++;
-  //G4cout << nucl << G4endl;
 
   return true;
 }

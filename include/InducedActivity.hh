@@ -18,11 +18,9 @@ public:
 private:
 	G4int HCID;
 	HitsCollection* tracker; 
-	G4int nucl;
 
 protected:
 	G4bool ProcessHits(G4Step*, G4TouchableHistory*) override;
-	G4VCrossSectionDataSet* cross;
 };
 
 #endif

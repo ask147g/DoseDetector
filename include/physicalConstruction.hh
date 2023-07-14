@@ -10,12 +10,11 @@
 #include "G4MultiFunctionalDetector.hh"
 #include "G4SDManager.hh"
 #include "G4VPrimitiveScorer.hh"
-#include "G4PSEnergyDeposit.hh"
-#include "G4SDParticleFilter.hh"
 #include "G4RotationMatrix.hh"
 #include "G4PVReplica.hh"
 
 #include "EffectiveDose.hh"
+#include "InducedActivity.hh"
 
 #include "G4Element.hh"
 #include "G4Isotope.hh"
