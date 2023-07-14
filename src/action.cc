@@ -13,7 +13,6 @@ void MyActionInitialization::Build() const {
 
 void MyActionInitialization::BuildForMaster() const
 {
-  //
   G4UserRunAction* run_action = new UserRunAction;
   SetUserAction(run_action);
 }

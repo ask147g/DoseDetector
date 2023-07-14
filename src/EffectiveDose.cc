@@ -35,7 +35,6 @@ G4bool EffectiveDose::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
     std::pow(pre.z()/CLHEP::cm - post.z()/CLHEP::cm, 2));
   
   G4double dose = ConvertDim(pdg, energy, detectorGeometry+1)*length/ComputeVolume(aStep, idx);
-  //G4double dose = length/ComputeVolume(aStep, idx);
   G4int index = GetIndex(aStep);
   
   EvtMap->add(index, dose);

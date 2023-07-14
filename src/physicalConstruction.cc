@@ -40,7 +40,7 @@ G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
 	logicWorld = 
         new G4LogicalVolume(
             solidWorld, 
-            vacuum, 
+            matMo, 
             "logicWorld");
 	
 	G4VPhysicalVolume *physWorld = 
@@ -54,15 +54,15 @@ G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
 			0, 
 			false); 
 
-    G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
-    G4VPrimitiveScorer* doseRate;
-    G4VPrimitiveScorer* activity;
-    doseRate = new EffectiveDose("Edep");
-    activity = new InducedActivity("Activity");
-    det->RegisterPrimitive(doseRate);
-    det->RegisterPrimitive(activity);
-    G4SDManager::GetSDMpointer()->AddNewDetector(det);
-    SetSensitiveDetector(logicWorld, det);
+    //G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
+    //G4VPrimitiveScorer* doseRate;
+    //G4VPrimitiveScorer* activity;
+    //doseRate = new EffectiveDose("Edep");
+    //activity = new InducedActivity("Activity");
+    //det->RegisterPrimitive(doseRate);
+    //det->RegisterPrimitive(activity);
+    //G4SDManager::GetSDMpointer()->AddNewDetector(det);
+    //SetSensitiveDetector(logicWorld, det);
 
     return physWorld;
 }

@@ -2,6 +2,8 @@
 #include "G4RunManagerFactory.hh"
 #include "G4RunManager.hh"
 
+#include "G4MTRunManager.hh"
+
 #include "G4UImanager.hh"
 #include "G4VisManager.hh"
 #include "G4VisExecutive.hh"
@@ -23,19 +25,22 @@ int main(int argc, char** argv) {
     if ( argc == 1 ) { ui = new G4UIExecutive(argc, argv); }
 
     //auto runManager = G4RunManagerFactory::CreateRunManager();
-	G4RunManager* runManager = new G4RunManager();
+	//G4RunManager* runManager = new G4RunManager();
 
-    G4ThreeVector worldSize = G4ThreeVector(0.4*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
+    G4MTRunManager* runManager = new G4MTRunManager;
+    runManager->SetNumberOfThreads(6);
+
+    G4ThreeVector worldSize = G4ThreeVector(0.5*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
 	G4ThreeVector detectorSize = G4ThreeVector(0.5*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
 
     PhysicalConstruction* world = new PhysicalConstruction(worldSize);
-    //G4String parallelWorldName = "ParallelWorld";
-    //world->RegisterParallelWorld(new ParallelWorld(parallelWorldName));
+    G4String parallelWorldName = "ParallelWorld";
+    world->RegisterParallelWorld(new ParallelWorld(parallelWorldName));
 	runManager->SetUserInitialization(world);
     
     auto physics = new QGSP_BERT_HP();
     
-    //physics->RegisterPhysics(new G4ParallelWorldPhysics(parallelWorldName));
+    physics->RegisterPhysics(new G4ParallelWorldPhysics(parallelWorldName));
     runManager->SetUserInitialization(physics);
 	runManager->SetUserInitialization(new MyActionInitialization());
 	

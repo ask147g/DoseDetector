@@ -13,13 +13,19 @@ public:
     virtual void Draw() {};
     virtual void Print() {};
 
+    inline void *operator new(size_t);
+    inline void operator delete(void *aHit);
+
     void SetName(G4String particle) {name = particle;}
     G4String GetName() {return name;}
     void SetLifeTime(G4double life) {lifeTime = life;}
     G4double GetLifeTime() {return lifeTime;}
+    void SetProcess(G4String proc) {process = proc;}
+    G4String GetProcess() {return process;}
 
 private:
     G4String name;
+    G4String process;
     G4double lifeTime;
 };
 
@@ -27,4 +33,14 @@ typedef G4THitsCollection<ActivityHit> HitsCollection;
 
 extern G4ThreadLocal G4Allocator<ActivityHit>* ActivityHitAllocator;
 
+inline void* ActivityHit::operator new(size_t)
+{
+  if(!ActivityHitAllocator) ActivityHitAllocator = new G4Allocator<ActivityHit>;
+  return (void *) ActivityHitAllocator->MallocSingle();
+}
+
+inline void ActivityHit::operator delete(void *aHit)
+{
+  ActivityHitAllocator->FreeSingle((ActivityHit*) aHit);
+}
 #endif

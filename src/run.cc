@@ -37,12 +37,15 @@ void UserRun::Merge(const G4Run * aRun) {
 
   auto itr = localRun->nuclides.begin();
   
-  for(; itr != localRun->nuclides.end(); itr++) {
+  for(itr; itr != localRun->nuclides.end(); itr++) {
+    //G4cout << itr->first << " " << itr->second.first << G4endl;
     if (auto map = nuclides.find(itr->first); map != nuclides.end()) {
-      map->second.first += itr->second.first;
+      map->second.first = map->second.first + itr->second.first;
+      //G4cout << itr->second.first << G4endl;
     }
     else {
-      nuclides.insert({itr->first, std::make_pair(1, itr->second.second)});
+      nuclides.insert({itr->first, std::make_pair(itr->second.first, itr->second.second)});
+      //G4cout << itr->second.first << G4endl;
     }
   }
 

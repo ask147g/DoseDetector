@@ -47,7 +47,6 @@ void ParallelWorld::SetupDetectors() {
     G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
     G4VPrimitiveScorer* doseRate;
     G4VPrimitiveScorer* activity;
-    G4VPrimitiveScorer* activity2;
     doseRate = new EffectiveDose("Edep");
     activity = new InducedActivity("Activity");
     det->RegisterPrimitive(doseRate);
