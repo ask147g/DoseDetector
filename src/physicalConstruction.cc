@@ -13,22 +13,22 @@ G4VPhysicalVolume *PhysicalConstruction::Construct() {
 
 G4VPhysicalVolume* PhysicalConstruction::SetupGeometry() {
     G4VPhysicalVolume *physWorld = BuildMotherVolume();
-    //BuildWorldConstruction();
+    BuildWorldConstruction();
 
     return physWorld;
 }
 
 G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
     G4NistManager *nist = G4NistManager::Instance();
-	G4Material *vacuum = nist->FindOrBuildMaterial("G4_O");
+	G4Material *vacuum = nist->FindOrBuildMaterial("G4_AIR");
 
-    G4Isotope* iso98 = new G4Isotope("Mo98", 42, 98, 98*CLHEP::g/mole);
-    
-    G4Element* Mo98 = new G4Element("isotope Mo98", "Mo" , 1);
-    Mo98->AddIsotope(iso98, 100*CLHEP::perCent);
-
-    G4Material* matMo= new G4Material("Mo98 mat" , 10.22*CLHEP::g/cm3, 1, kStateSolid);
-    matMo->AddElement(Mo98, 1.00);
+    //G4Isotope* iso98 = new G4Isotope("Mo98", 42, 98, 98*CLHEP::g/mole);
+    //
+    //G4Element* Mo98 = new G4Element("isotope Mo98", "Mo" , 1);
+    //Mo98->AddIsotope(iso98, 100*CLHEP::perCent);
+    //
+    //G4Material* matMo= new G4Material("Mo98 mat" , 10.22*CLHEP::g/cm3, 1, kStateSolid);
+    //matMo->AddElement(Mo98, 1.00);
 
     G4Box *solidWorld = 
         new G4Box(
@@ -40,7 +40,7 @@ G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
 	logicWorld = 
         new G4LogicalVolume(
             solidWorld, 
-            matMo, 
+            vacuum, 
             "logicWorld");
 	
 	G4VPhysicalVolume *physWorld = 
@@ -54,52 +54,43 @@ G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
 			0, 
 			false); 
 
-    //G4MultiFunctionalDetector* det = new G4MultiFunctionalDetector("doseDetector");
-    //G4VPrimitiveScorer* doseRate;
-    //G4VPrimitiveScorer* activity;
-    //doseRate = new EffectiveDose("Edep");
-    //activity = new InducedActivity("Activity");
-    //det->RegisterPrimitive(doseRate);
-    //det->RegisterPrimitive(activity);
-    //G4SDManager::GetSDMpointer()->AddNewDetector(det);
-    //SetSensitiveDetector(logicWorld, det);
-
     return physWorld;
 }
 
 void PhysicalConstruction::BuildWorldConstruction() {
+    BuildSource();
+    BuildTarget();
+}
+
+void PhysicalConstruction::BuildTarget() {
     G4NistManager *nist = G4NistManager::Instance();
-    G4Material *water = nist->FindOrBuildMaterial("G4_AIR");
-
-    G4Isotope* iso98 = new G4Isotope("Mo98", 42, 98, 98*CLHEP::g/mole);
-    
-    G4Element* Mo98 = new G4Element("isotope Mo98", "Mo" , 1);
-    Mo98->AddIsotope(iso98, 100*CLHEP::perCent);
-
-    G4Material* matMo= new G4Material("Mo98 mat" , 10.22*CLHEP::g/cm3, 1, kStateSolid);
-    matMo->AddElement(Mo98, 1.00);
+    G4Material *concrete = nist->FindOrBuildMaterial("G4_CONCRETE");
 
     G4Box *waterBox = 
         new G4Box(
-            "waterBox_main", 
-            0.5*CLHEP::cm, 
-            0.5*CLHEP::cm, 
-            0.5*CLHEP::cm);
+            "target", 
+            10*CLHEP::cm, 
+            5*CLHEP::cm, 
+            5*CLHEP::cm);
 
     G4LogicalVolume *waterLogic = 
         new G4LogicalVolume(
             waterBox, 
-            matMo, 
-            "waterLogic_main");
+            concrete, 
+            "targetLogic");
 
     G4VPhysicalVolume *waterWorld = 
         new G4PVPlacement(
             new G4RotationMatrix(0, 0., 0.), 
-			G4ThreeVector((-10+0.5)*CLHEP::cm, 0.5*CLHEP::cm, 3.5*CLHEP::cm), 
+			G4ThreeVector(50*CLHEP::cm, 0., 0.), 
 			waterLogic, 
-			"physWorld_main", 
+			"physTarget", 
 			logicWorld, 
 			false, 
 			0, 
 			false); 
+}
+
+void PhysicalConstruction::BuildSource() {
+    
 }

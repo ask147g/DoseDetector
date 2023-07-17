@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 detNum = [20, 20, 20]
-detSize = [1, 1, 1] # cm
+detSize = [10, 10, 10] # cm
 f = open('dose.csv', 'r')
 
 doseRate = np.array([])
 for line in f:
-    doseRate = np.append(doseRate, float(line.rstrip())/(10**9))
+    doseRate = np.append(doseRate, float(line.rstrip())/(10**9)*3600)
 
 yValue = np.array([])
 zValue = np.array([])
@@ -42,7 +42,7 @@ for k in range(detNum[0]):
     cax = divider.append_axes("right", size="5%", pad=0.5)
 
     cbar = ax.figure.colorbar(im, cax=cax)
-    cbar.ax.set_ylabel("H, mSv/s", rotation=90, va="bottom", fontsize=24)
+    cbar.ax.set_ylabel("H, mSv/h", rotation=90, va="bottom", fontsize=24)
     cbar.ax.tick_params(labelsize=24) 
     fig.tight_layout()
     plt.savefig(f'processing/dose/table/{k*detSize[0]+1/2*detSize[0]}_cm.png')

@@ -33,6 +33,9 @@ private:
 	G4VPhysicalVolume* BuildMotherVolume();
 	void BuildWorldConstruction();
 
+	void BuildTarget();
+	void BuildSource();
+
 	G4LogicalVolume* logicWorld;
 	G4ThreeVector worldSize;
 };

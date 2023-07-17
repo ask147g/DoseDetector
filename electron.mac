@@ -1,0 +1,10 @@
+# Источник 1
+/gps/particle e-
+/gps/ene/type Mono
+/gps/ene/mono 5 MeV
+/gps/pos/type Point
+/gps/pos/centre -50 0 0 cm
+/gps/ang/type planar
+/gps/direction 1 0 0
+
+/run/beamOn 10000000

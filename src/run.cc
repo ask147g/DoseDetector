@@ -73,7 +73,6 @@ std::map<std::pair<G4String, G4String>, std::pair<G4int, G4double> > UserRun::Ge
     const int y = (it->first - x*400) / 20;
     const int z = it->first - x* 400 - y*20;
     if ((x == xx) && (y == yy) && (z == zz)) return it->second;
-    //G4cout << it->first.first << " " << it->first.second << " " << it->second.first << " " << it->second.second << std::endl;
   }
   std::map<std::pair<G4String, G4String>, std::pair<G4int, G4double> > zero = {{std::make_pair("-", "-"), std::make_pair(0, 0)}};
   return zero;

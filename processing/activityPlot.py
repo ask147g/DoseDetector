@@ -8,7 +8,7 @@ ParticleList = "All" # Plot is always in zero position
 cooltime = 100 # in seconds
 
 detNum = [20, 20, 20]
-detSize = [1, 1, 1] # cm
+detSize = [10, 10, 10] # cm
 
 # Read file
 f = open('activity.csv', 'r')
