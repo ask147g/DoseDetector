@@ -1,9 +1,5 @@
-#include <iostream>
 #include "G4RunManagerFactory.hh"
 #include "G4RunManager.hh"
-
-#include "G4MTRunManager.hh"
-
 #include "G4UImanager.hh"
 #include "G4VisManager.hh"
 #include "G4VisExecutive.hh"
@@ -18,24 +14,21 @@
 #include "action.hh"
 
 int main(int argc, char** argv) {
-    //CLHEP::HepRandom::setTheEngine(new CLHEP::MTwistEngine); 
-    //CLHEP::HepRandom::setTheSeed((unsigned)clock()); 
+    CLHEP::HepRandom::setTheEngine(new CLHEP::MTwistEngine); 
+    CLHEP::HepRandom::setTheSeed((unsigned)clock()); 
 
     G4UIExecutive* ui = nullptr;
     if ( argc == 1 ) { ui = new G4UIExecutive(argc, argv); }
 
-    //auto runManager = G4RunManagerFactory::CreateRunManager();
+    auto runManager = G4RunManagerFactory::CreateRunManager();
 	//G4RunManager* runManager = new G4RunManager();
 
-    G4MTRunManager* runManager = new G4MTRunManager;
-    runManager->SetNumberOfThreads(6);
-
-    G4ThreeVector worldSize = G4ThreeVector(0.5*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
+    G4ThreeVector worldSize = G4ThreeVector(10*CLHEP::cm, 10*CLHEP::cm, 10*CLHEP::cm);
 	G4ThreeVector detectorSize = G4ThreeVector(0.5*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
 
     PhysicalConstruction* world = new PhysicalConstruction(worldSize);
     G4String parallelWorldName = "ParallelWorld";
-    world->RegisterParallelWorld(new ParallelWorld(parallelWorldName));
+    world->RegisterParallelWorld(new ParallelWorldMany(parallelWorldName, worldSize, detectorSize));
 	runManager->SetUserInitialization(world);
     
     auto physics = new QGSP_BERT_HP();

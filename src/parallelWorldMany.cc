@@ -23,9 +23,9 @@ void ParallelWorldMany::SetupGeometry() {
     G4Box *waterBox = 
         new G4Box(
             "waterBox", 
-            0.5*CLHEP::cm, 
-            0.5*CLHEP::cm, 
-            0.5*CLHEP::cm);
+            detectorSize.x(), 
+            detectorSize.y(), 
+            detectorSize.z());
 
     waterLogic = 
         new G4LogicalVolume(

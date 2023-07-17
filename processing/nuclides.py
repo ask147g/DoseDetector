@@ -1,6 +1,6 @@
 import math
 
-f = open('HP/endf.csv', 'r')
+f = open('activity.csv', 'r')
 
 # consts
 AvogadroNumber = 6.02214082e23
@@ -27,8 +27,6 @@ sigmaNG = (0.028616352)*1e-24
 Bq = 10000000
 
 # product
-halfLife = 65.976*3600 # sec
-
 N = density/mu*AvogadroNumber # cm-3
 V = x*y*z
 
@@ -36,7 +34,7 @@ ions = []
 nuclides = []
 lifeTime = []
 for line in f:
-    ion, N0, tau = line.split(' ') 
+    ion, proc, N0, tau = line.split(' ') 
     ions.append(ion)
     nuclides.append(float(N0))
     lifeTime.append(float(tau))

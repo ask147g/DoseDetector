@@ -23,10 +23,14 @@ public:
     void SetProcess(G4String proc) {process = proc;}
     G4String GetProcess() {return process;}
 
+    void SetNumber(G4int num) {number = num;}
+    G4int GetNumber() {return number;}
+
 private:
     G4String name;
     G4String process;
     G4double lifeTime;
+    G4int number;
 };
 
 typedef G4THitsCollection<ActivityHit> HitsCollection;
