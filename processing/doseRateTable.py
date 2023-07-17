@@ -10,7 +10,7 @@ f = open('dose.csv', 'r')
 
 doseRate = np.array([])
 for line in f:
-    doseRate = np.append(doseRate, float(line.rstrip())/1000.)
+    doseRate = np.append(doseRate, float(line.rstrip())/(10**9))
 
 yValue = np.array([])
 zValue = np.array([])
@@ -42,7 +42,7 @@ for k in range(detNum[0]):
     cax = divider.append_axes("right", size="5%", pad=0.5)
 
     cbar = ax.figure.colorbar(im, cax=cax)
-    cbar.ax.set_ylabel("H, nSv/s", rotation=90, va="bottom", fontsize=24)
+    cbar.ax.set_ylabel("H, mSv/s", rotation=90, va="bottom", fontsize=24)
     cbar.ax.tick_params(labelsize=24) 
     fig.tight_layout()
     plt.savefig(f'processing/dose/table/{k*detSize[0]+1/2*detSize[0]}_cm.png')

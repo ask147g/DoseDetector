@@ -3,8 +3,8 @@ cmake ..
 make -j12
 ./doseDetector forward.mac
 
-python processing/doseRate.py
-python processing/activity.py
+python processing/doseRatePlot.py
+python processing/activityPlot.py
 
-python processing/tableDoseRate.py
-python processing/tableActivity.py
+python processing/doseRateTable.py
+python processing/activityTable.py

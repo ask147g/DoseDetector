@@ -21,7 +21,7 @@ G4bool InducedActivity::ProcessHits(G4Step* aStep, G4TouchableHistory*) {
   auto particle = aStep->GetTrack()->GetParticleDefinition();
   if (aStep->GetTrack()->GetParentID() == 0) return false; // only secondary etc particles
   
-  //if (!(aStep->IsFirstStepInVolume())) return false;
+  //if (!(aStep->IsFirstStepInVolume())) return false; // do not work in MT
 
   if (particle->GetIonLifeTime() <= 0) return false; // only radioactive ions
   if (particle->GetAtomicNumber() == 0) return false; // n, e-, etc
