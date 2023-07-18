@@ -23,8 +23,8 @@ int main(int argc, char** argv) {
     auto runManager = G4RunManagerFactory::CreateRunManager();
 	//G4RunManager* runManager = new G4RunManager();
 
-    G4ThreeVector worldSize = G4ThreeVector(100*CLHEP::cm, 100*CLHEP::cm, 100*CLHEP::cm);
-	G4ThreeVector detectorSize = G4ThreeVector(5*CLHEP::cm, 5*CLHEP::cm, 5*CLHEP::cm);
+    G4ThreeVector worldSize = G4ThreeVector(10*CLHEP::cm, 10*CLHEP::cm, 10*CLHEP::cm);
+	G4ThreeVector detectorSize = G4ThreeVector(0.5*CLHEP::cm, 0.5*CLHEP::cm, 0.5*CLHEP::cm);
 
     PhysicalConstruction* world = new PhysicalConstruction(worldSize);
     G4String parallelWorldName = "ParallelWorld";

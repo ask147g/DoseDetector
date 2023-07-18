@@ -2,12 +2,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 detNum = [20, 20, 20]
-detSize = [10, 10, 10] # cm
+detSize = [1, 1, 1] # cm
 f = open('dose.csv', 'r')
+
+# goal activity
+m = 1 # g
+mu = 60 # g per mole
+Na = 6.022*10**23
+tau = 1925.28*3600*24 # seconds
+
+A = m*Na/(mu*tau)
+modelA = 2*10**7
+coeff = A/modelA
 
 doseRate = np.array([])
 for line in f:
-    doseRate = np.append(doseRate, float(line.rstrip())/(10**9)*3600)
+    doseRate = np.append(doseRate, float(line.rstrip())/(10**9)*0.25*coeff)
 
 yValue = np.array([])
 zValue = np.array([])
@@ -27,4 +37,4 @@ for i in range(detNum[0]):
         fig.colorbar(cp, label='H, mSv/h')
         plt.savefig(f'processing/dose/plot/{i*detSize[0]+1/2*detSize[0]}_cm.png')
     else:
-        print(f"{dose[0][0]} nSv/h")
+        print(f"{dose[0][0]} mSv/h")

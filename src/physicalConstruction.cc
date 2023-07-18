@@ -13,7 +13,7 @@ G4VPhysicalVolume *PhysicalConstruction::Construct() {
 
 G4VPhysicalVolume* PhysicalConstruction::SetupGeometry() {
     G4VPhysicalVolume *physWorld = BuildMotherVolume();
-    BuildWorldConstruction();
+    //BuildWorldConstruction();
 
     return physWorld;
 }
