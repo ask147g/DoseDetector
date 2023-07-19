@@ -20,6 +20,10 @@
 #include "G4Isotope.hh"
 #include "G4Material.hh"
 
+#include "G4UnionSolid.hh"
+#include "G4SubtractionSolid.hh"
+#include "G4IntersectionSolid.hh"
+
 #include <vector>
 
 class PhysicalConstruction : public G4VUserDetectorConstruction {
@@ -34,7 +38,10 @@ private:
 	void BuildWorldConstruction();
 
 	void BuildTarget();
-	void BuildSource();
+	void BuildWalls();
+	void BuildWall();
+	void BuildProtection();
+	
 
 	G4LogicalVolume* logicWorld;
 	G4ThreeVector worldSize;
