@@ -51,5 +51,5 @@ for i in range(len(ions)):
 fluence = Bq/area
 nuclei = (sigmaNG)*N*V*fluence
 
-print(f"Geant4: {sum}; Calculate: {nuclei}.\n")
-print(f"Difference g4/calc: {sum/nuclei}")
+print(f"Geant4: {NGReaction}; Calculate: {nuclei}.\n")
+print(f"Difference g4/calc: {NGReaction/nuclei}")

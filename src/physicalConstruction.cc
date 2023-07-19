@@ -20,15 +20,15 @@ G4VPhysicalVolume* PhysicalConstruction::SetupGeometry() {
 
 G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
     G4NistManager *nist = G4NistManager::Instance();
-	G4Material *vacuum = nist->FindOrBuildMaterial("G4_AIR");
+	//G4Material *vacuum = nist->FindOrBuildMaterial("G4_AIR");
 
-    //G4Isotope* iso98 = new G4Isotope("Mo98", 42, 98, 98*CLHEP::g/mole);
-    //
-    //G4Element* Mo98 = new G4Element("isotope Mo98", "Mo" , 1);
-    //Mo98->AddIsotope(iso98, 100*CLHEP::perCent);
-    //
-    //G4Material* matMo= new G4Material("Mo98 mat" , 10.22*CLHEP::g/cm3, 1, kStateSolid);
-    //matMo->AddElement(Mo98, 1.00);
+    G4Isotope* iso98 = new G4Isotope("Mo98", 42, 98, 98*CLHEP::g/mole);
+    
+    G4Element* Mo98 = new G4Element("isotope Mo98", "Mo" , 1);
+    Mo98->AddIsotope(iso98, 100*CLHEP::perCent);
+    
+    G4Material* matMo= new G4Material("Mo98 mat" , 10.22*CLHEP::g/cm3, 1, kStateSolid);
+    matMo->AddElement(Mo98, 1.00);
 
     G4Box *solidWorld = 
         new G4Box(
@@ -40,7 +40,7 @@ G4VPhysicalVolume* PhysicalConstruction::BuildMotherVolume() {
 	logicWorld = 
         new G4LogicalVolume(
             solidWorld, 
-            vacuum, 
+            matMo, 
             "logicWorld");
 	
 	G4VPhysicalVolume *physWorld = 

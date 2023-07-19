@@ -17,7 +17,7 @@ coeff = A/modelA
 
 doseRate = np.array([])
 for line in f:
-    doseRate = np.append(doseRate, float(line.rstrip())/(10**9)*0.25*coeff)
+    doseRate = np.append(doseRate, float(line.rstrip())/(10**12)*0.25*coeff)
 
 yValue = np.array([])
 zValue = np.array([])
@@ -34,7 +34,7 @@ for i in range(detNum[0]):
         ax.set_ylabel('y, (cm)')
         ax.set_xlabel('z, (cm)')
         cp = ax.contourf(np.array(zValue[0:20], dtype=float), np.array(yValue[0:20], dtype=float), np.array(dose, dtype=float))
-        fig.colorbar(cp, label='H, mSv/h')
+        fig.colorbar(cp, label='E, Зв/с')
         plt.savefig(f'processing/dose/plot/{i*detSize[0]+1/2*detSize[0]}_cm.png')
     else:
-        print(f"{dose[0][0]} mSv/h")
+        print(f"{dose[0][0]} Зв/с")
