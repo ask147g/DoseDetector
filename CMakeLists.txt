@@ -24,7 +24,7 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/dose/table)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/activity/plot)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/processing/activity/table)
 
-add_executable(doseDetector doseDetector.cc ${sources} ${headers})
-target_link_libraries(doseDetector ${Geant4_LIBRARIES})
+add_executable(doseAndActivity doseAndActivity.cc ${sources} ${headers})
+target_link_libraries(doseAndActivity ${Geant4_LIBRARIES})
 
 add_custom_target(Dose DEPENDS doseDetector)
