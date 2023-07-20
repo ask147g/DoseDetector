@@ -69,9 +69,9 @@ void UserRun::Merge(const G4Run * aRun) {
 std::map<std::pair<G4String, G4String>, std::pair<G4int, G4double> > UserRun::GetNuclides(int xx, int yy, int zz) const {
   auto it = NuclidesLot.begin();
   for(; it != NuclidesLot.end(); it++) {
-    const int x = (it->first / 4000);
-    const int y = (it->first - x*4000) / 200;
-    const int z = it->first - x* 4000 - y*200;
+    const int x = (it->first / 400);
+    const int y = (it->first - x*400) / 20;
+    const int z = it->first - x* 400 - y*20;
     if ((x == xx) && (y == yy) && (z == zz)) return it->second;
   }
   std::map<std::pair<G4String, G4String>, std::pair<G4int, G4double> > zero = {{std::make_pair("-", "-"), std::make_pair(0, 0)}};
@@ -83,9 +83,9 @@ G4double UserRun::GetTotalDose(int xx, int yy, int zz, const G4THitsMap<G4double
   if(map.GetSize()==0) return 0;
   std::map<G4int,G4double*>::iterator itr = map.GetMap()->begin();
   for(; itr != map.GetMap()->end(); itr++) {
-    const int x = (itr->first / 4000);
-    const int y = (itr->first - x*4000) / 200;
-    const int z = itr->first - x* 4000 - y*200;
+    const int x = (itr->first / 400);
+    const int y = (itr->first - x*400) / 20;
+    const int z = itr->first - x* 400 - y*20;
     if ((x == xx) && (y == yy) && (z == zz)) return *(itr->second);
   }
   return 0;

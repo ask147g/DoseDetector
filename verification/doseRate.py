@@ -8,7 +8,7 @@ mu = 59.9338171 # g per mole
 Na = 6.022*10**23
 tau = 1925.28*3600*24 # seconds
 
-A = masss*Na/(mu*tau)
+A = mass*Na/(mu*tau)
 modelA = 1*10**6
 coeff = A/modelA
 
@@ -50,8 +50,8 @@ for i in range(len(r)):
 fig,ax=plt.subplots(1,1)
 ax.set_xlabel('r, см')
 ax.set_ylabel('E, Зв/с')
-plt.errorbar(r, geant4, yerr=error, fmt='ko', label='Geant4')
-plt.plot(rr, dose, color='blue', label='Г = 84.6 $\dfrac{аГр\cdot м^{2}}{с\cdot Бк}$ [3]')
+plt.errorbar(r, geant4, yerr=error, fmt='ko', label='GEANT4')
+plt.plot(rr, dose, color='blue', label='Г = 84.6 $\dfrac{аГр\cdot м^{2}}{с\cdot Бк}$')
 ax.set_yscale('log')
 plt.legend(loc="upper right")
 plt.grid()

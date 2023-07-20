@@ -26,9 +26,9 @@ void UserRunAction::EndOfRunAction(const G4Run* aRun) {
         if (out.is_open())
         {
             // amount of detectors there
-            for (int x = 0; x < 200; x++) {
-                for (int y = 0; y < 200; y++) {
-                    for (int z = 0; z < 200; z++) {
+            for (int x = 0; x < 20; x++) {
+                for (int y = 0; y < 20; y++) {
+                    for (int z = 0; z < 20; z++) {
                         out << theRun->GetTotalE(x, y, z)/CLHEP::joule*CLHEP::kilogram/1.e-12 << std::endl;
 
                         auto nuclides = theRun->GetNuclides(x, y, z);
@@ -40,13 +40,6 @@ void UserRunAction::EndOfRunAction(const G4Run* aRun) {
                     }
                 }
             }
-
-            //auto nuclides = theRun->GetNuclides(0, 0, 0);
-            //auto it = nuclides.begin();
-            //for(; it != nuclides.end(); it++) {
-            //  outActivity << it->first.first << " " << it->first.second << " " << it->second.first << " " << it->second.second << std::endl;
-            //  outActivity << "#END" << std::endl;
-            //}
         }
         out.close(); 
         outActivity.close(); 

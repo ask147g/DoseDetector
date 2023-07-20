@@ -4,7 +4,7 @@ import numpy as np
 
 # Setup
 notProcessList = ["RadioactiveDecay"] # without processes
-ParticleList = "All" # Plot is always in zero position
+ParticleList = "All"
 cooltime = 100 # in seconds
 
 detNum = [20, 20, 20]

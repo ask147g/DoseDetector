@@ -7,7 +7,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # Setup
 notProcessList = ["RadioactiveDecay"] # without processes
-ParticleList = "All" # Plot is always in zero position
+ParticleList = "All"
 cooltime = 100 # in seconds
 
 detNum = [20, 20, 20]
